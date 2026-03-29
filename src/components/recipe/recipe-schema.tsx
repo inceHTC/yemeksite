@@ -18,7 +18,7 @@ export function RecipeSchema({ recipe, url }: RecipeSchemaProps) {
     author: {
       "@type": "Organization",
       name: "Tok Bebek",
-      url: "https://bebi.life",
+      url: "https://tokbebek.com.tr",
     },
     datePublished: recipe.created_at,
     dateModified: recipe.updated_at,

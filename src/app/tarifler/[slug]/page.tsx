@@ -31,6 +31,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   const title = `${recipe.title} (${recipe.age_min_months}-${recipe.age_max_months} Aylık Bebek)`;
   const description = `${recipe.description} ${recipe.prep_time_min + recipe.cook_time_min} dakikada hazır. ${recipe.age_min_months}-${recipe.age_max_months} aylık bebekler için uygun.`;
+  const canonicalUrl = `https://tokbebek.com.tr/tarifler/${slug}`;
+  const ogImage = `/api/og?title=${encodeURIComponent(recipe.title)}&age=${recipe.age_min_months}-${recipe.age_max_months}&image=${encodeURIComponent(recipe.image_url ?? "")}`;
 
   return {
     title,
@@ -38,24 +40,23 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     keywords: [
       recipe.title,
       `${recipe.age_min_months} aylık bebek yemeği`,
+      `${recipe.age_min_months}-${recipe.age_max_months} ay bebek tarifi`,
       "bebek tarifi",
       "bebek püresi",
       "bebek beslenmesi",
+      "tamamlayıcı besin",
       recipe.is_dairy_free ? "sütsüz bebek tarifi" : "",
       recipe.is_gluten_free ? "glutensiz bebek tarifi" : "",
     ].filter(Boolean),
+    alternates: { canonical: canonicalUrl },
     openGraph: {
       title,
       description,
-      images: [
-        {
-          url: `/api/og?title=${encodeURIComponent(recipe.title)}&age=${recipe.age_min_months}-${recipe.age_max_months}&image=${encodeURIComponent(recipe.image_url ?? "")}`,
-          width: 1200,
-          height: 630,
-          alt: recipe.title,
-        },
-      ],
+      url: canonicalUrl,
       type: "article",
+      locale: "tr_TR",
+      siteName: "Tok Bebek",
+      images: [{ url: ogImage, width: 1200, height: 630, alt: recipe.title }],
     },
     twitter: { card: "summary_large_image", title, description },
   };

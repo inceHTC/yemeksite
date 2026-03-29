@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "24-36 Aylık Bebek Yemekleri — Küçük Çocuk Beslenmesi",
   description: "2 ve 3 yaş çocuklar için tarif önerileri. Bağımsız yeme, sağlıklı atıştırmalıklar ve dengeli beslenme alışkanlıkları.",
   keywords: ["2 yaş çocuk yemekleri", "3 yaş çocuk ne yer", "küçük çocuk beslenmesi", "24 aylık bebek yemekleri", "36 aylık çocuk yemekleri"],
+  alternates: { canonical: "https://tokbebek.com.tr/24-36-ay" },
 };
 
 export default function TwentyFourToThirtySixPage() {

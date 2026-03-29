@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   title: "Bebekte Demir Eksikliği: Belirtiler ve Demir Zengini Tarifler",
   description: "6-24 ay arası bebekler için demir eksikliği belirtileri ve demir açısından zengin tarifler. Hem ve non-hem demir kaynakları rehberi.",
   keywords: ["bebekte demir eksikliği", "bebek anemi", "demir zengini bebek yemeği", "bebek demir takviyesi"],
+  alternates: { canonical: "https://tokbebek.com.tr/destek/demir-eksikligi" },
 };
 
 async function DemirRecipes() {

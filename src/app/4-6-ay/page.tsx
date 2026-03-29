@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "4-6 Aylık Bebek Yemekleri — İlk Tamamlayıcı Besin Tarifleri",
   description: "4, 5 ve 6 aylık bebekler için ilk tamamlayıcı besin tarifleri. Tek malzemeli, pürüzsüz püreler. Elma, havuç, tatlı patates ve daha fazlası.",
   keywords: ["4 aylık bebek ne yer", "5 aylık bebek yemekleri", "6 aylık bebek yemekleri", "ilk tamamlayıcı besin", "bebek püresi tarifleri"],
+  alternates: { canonical: "https://tokbebek.com.tr/4-6-ay" },
 };
 
 export default function FourToSixPage() {

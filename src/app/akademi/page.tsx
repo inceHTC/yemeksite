@@ -15,6 +15,7 @@ export const metadata: Metadata = {
   description:
     "WHO ve AAP'a dayalı bebek beslenmesi rehberleri. Tamamlayıcı beslenmeye başlangıç, alerjen giriş, porsiyon rehberi ve daha fazlası.",
   keywords: ["bebek beslenmesi rehber", "tamamlayıcı besin", "bebek alerji", "bebek porsiyon", "bebek gelişim"],
+  alternates: { canonical: "https://tokbebek.com.tr/akademi" },
 };
 
 const CATEGORY_LABEL: Record<string, string> = {

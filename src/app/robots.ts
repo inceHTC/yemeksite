@@ -1,16 +1,25 @@
 import type { MetadataRoute } from "next";
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? "https://bebi.life";
-
   return {
     rules: [
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/api/", "/auth/", "/profil", "/favorilerim"],
+        disallow: [
+          "/api/",
+          "/auth/",
+          "/admin/",
+          "/profil",
+          "/favorilerim",
+          "/basla",
+          "/giris",
+          "/kayit",
+          "/sifremi-unuttum",
+        ],
       },
     ],
-    sitemap: `${baseUrl}/sitemap.xml`,
+    sitemap: "https://tokbebek.com.tr/sitemap.xml",
+    host: "https://tokbebek.com.tr",
   };
 }

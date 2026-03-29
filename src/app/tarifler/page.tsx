@@ -10,6 +10,7 @@ import { Breadcrumb } from "@/components/shared/breadcrumb";
 export const metadata: Metadata = {
   title: "Bebek Yemekleri Tarifleri",
   description: "Bebeğinizin yaşına, alerjilerine ve ihtiyacına göre filtrelenmiş yüzlerce tarif. Bilimsel, lezzetli, güvenli.",
+  alternates: { canonical: "https://tokbebek.com.tr/tarifler" },
 };
 
 interface PageProps {

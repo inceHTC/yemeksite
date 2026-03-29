@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   title: "Bebek Kabızlığına Ne İyi Gelir? — Kabızlık Önleyici Tarifler",
   description: '"P meyveleri", yüksek lifli tahıllar ve yoğurt ile bebek kabızlığına doğal çözümler. Erik, armut, şeftali tarifleri.',
   keywords: ["bebek kabızlığı", "bebek kabızlığına ne iyi gelir", "bebek kabızlık tarifi", "bebek erik püresi", "bebek bağırsak"],
+  alternates: { canonical: "https://tokbebek.com.tr/destek/kabizlik" },
 };
 
 async function KabizlikRecipes() {

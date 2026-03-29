@@ -136,7 +136,7 @@ export async function GET(request: NextRequest) {
                 color: "#636e72",
               }}
             >
-              bebi.life • Bebek Yemekleri Tarifleri
+              tokbebek.com.tr • Bebek Yemekleri Tarifleri
             </div>
           </div>
 

@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "12-24 Aylık Bebek Yemekleri — Aile Sofrasına Geçiş",
   description: "12, 15, 18 ve 24 aylık bebekler için tarif önerileri. Aile yemeğine uyarlama, renkli tabaklar ve sağlıklı atıştırmalıklar.",
   keywords: ["12 aylık bebek yemekleri", "1 yaş bebek ne yer", "18 aylık bebek yemekleri", "2 yaş bebek yemekleri", "aile sofrasına geçiş"],
+  alternates: { canonical: "https://tokbebek.com.tr/12-24-ay" },
 };
 
 export default function TwelveToTwentyFourPage() {

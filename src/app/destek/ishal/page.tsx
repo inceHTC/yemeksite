@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   title: "Bebekte İshal: Ne Yedireyim? BRAT Diyeti Rehberi",
   description: "Bebekte ishal döneminde BRAT diyeti ve beslenme önerileri. Sıvı kaybını önleme ve sindirim sistemini yatıştıran tarifler.",
   keywords: ["bebekte ishal ne yedireyim", "bebek ishal tarifi", "BRAT diyeti bebek", "bebek ishal beslenme"],
+  alternates: { canonical: "https://tokbebek.com.tr/destek/ishal" },
 };
 
 async function IshalRecipes() {

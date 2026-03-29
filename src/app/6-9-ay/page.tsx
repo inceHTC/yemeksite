@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "6-9 Aylık Bebek Yemekleri — Karışık Püreler ve Tahıllar",
   description: "6, 7 ve 8 aylık bebekler için tarif önerileri. Karışık püreler, yulaf lapası, protein kaynakları. WHO rehberine uygun beslenme.",
   keywords: ["6 aylık bebek yemekleri", "7 aylık bebek ne yer", "8 aylık bebek yemekleri", "bebek yulaf lapası", "bebek karışık püre"],
+  alternates: { canonical: "https://tokbebek.com.tr/6-9-ay" },
 };
 
 export default function SixToNinePage() {

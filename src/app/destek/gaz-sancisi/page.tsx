@@ -12,6 +12,38 @@ export const metadata: Metadata = {
   title: "Bebek Gaz Sancısına Ne İyi Gelir? — Gaz Dostu Tarifler",
   description: "Bebek gaz sancısını azaltan rezene, kimyon ve papatya içerikli tarifler. Gaz masajı adımları ve doğal çözümler.",
   keywords: ["bebek gaz sancısı", "bebek gazı nasıl geçer", "gaz dostu bebek yemekleri", "rezene bebek", "bebek gaz masajı"],
+  alternates: { canonical: "https://tokbebek.com.tr/destek/gaz-sancisi" },
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "Bebek gaz sancısına ne iyi gelir?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Bebek gaz sancısına rezene, kimyon ve papatya içerikli besinler iyi gelir. Bunların yanı sıra bisiklet hareketi ve saat yönünde karın masajı da etkili yöntemler arasındadır.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Bebek gazı nasıl çıkarılır?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Bebek gazı için göbek çevresinden saat yönünde daireler çizerek 2-3 dakika karın masajı yapabilir, ardından bebeğin bacaklarını bisiklet çevirir gibi döngüsel hareket yaptırabilirsiniz.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Hangi yaştan itibaren rezene bebeklere verilebilir?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Rezene 6. aydan itibaren az miktarda bebek yemeklerine eklenebilir. Antispazmodik özellikleriyle gaz kramplarını azaltmaya yardımcı olur.",
+      },
+    },
+  ],
 };
 
 async function GazRecipes() {
@@ -41,6 +73,10 @@ const KEY_FOODS = [
 export default function GazSancisiPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       <Header />
       <main className="flex-1 pb-20 sm:pb-0">
 

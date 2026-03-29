@@ -13,6 +13,16 @@ export const metadata: Metadata = {
   title: "Tok Bebek — Bebek Yemekleri Tarifleri",
   description:
     "4–36 aylık bebekler için bilimsel ve lezzetli yemek tarifleri. Püre, çorba, kahvaltı ve daha fazlası. WHO & AAP verilerine dayalı güvenli tarifler.",
+  alternates: { canonical: "https://tokbebek.com.tr" },
+  openGraph: {
+    title: "Tok Bebek — Bebek Yemekleri Tarifleri",
+    description: "4–36 aylık bebekler için bilimsel ve lezzetli yemek tarifleri. Püre, çorba, kahvaltı ve daha fazlası.",
+    url: "https://tokbebek.com.tr",
+    type: "website",
+    locale: "tr_TR",
+    siteName: "Tok Bebek",
+    images: [{ url: "/og-default.png", width: 1200, height: 630, alt: "Tok Bebek — Bebek Yemekleri Tarifleri" }],
+  },
 };
 
 const SPECIAL_CATEGORIES = [

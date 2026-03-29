@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   title: "Diş Çıkaran Bebek İçin Tarifler — Serinletici ve Yumuşak Yemekler",
   description: "Diş çıkarma döneminde bebeğinizin rahatsızlığını azaltacak soğuk ve yumuşak tarifler. Dondurulmuş meyve bezi ve serinletici püreler.",
   keywords: ["diş çıkaran bebek yemekleri", "diş çıkarma beslenmesi", "bebek diş ağrısı ne iyi gelir", "serinletici bebek yemeği"],
+  alternates: { canonical: "https://tokbebek.com.tr/destek/dis-cikarma" },
 };
 
 async function DisRecipes() {

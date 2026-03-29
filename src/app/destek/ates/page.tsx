@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   title: "Ateşli Bebekte Beslenme: Ne Yedireyim, Ne İçireyim?",
   description: "Ateşli bebekte sıvı kaybını önleme ve bağışıklığı destekleyen beslenme rehberi. Komposto, çorba ve yumuşak tarifler.",
   keywords: ["ateşli bebek ne yedireyim", "bebek ateş beslenme", "çocuk ateş ne iyi gelir", "bebek ateş sıvı"],
+  alternates: { canonical: "https://tokbebek.com.tr/destek/ates" },
 };
 
 async function AtesRecipes() {

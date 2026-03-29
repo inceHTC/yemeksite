@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "9-12 Aylık Bebek Yemekleri — Parmak Yiyecekler ve Pütürlü Dokular",
   description: "9, 10 ve 11 aylık bebekler için tarif önerileri. Parmak yiyecekler, pütürlü dokuya geçiş, aile sofrasına hazırlık.",
   keywords: ["9 aylık bebek yemekleri", "10 aylık bebek ne yer", "11 aylık bebek yemekleri", "bebek parmak yiyecek", "BLW tarifleri"],
+  alternates: { canonical: "https://tokbebek.com.tr/9-12-ay" },
 };
 
 export default function NineToTwelvePage() {

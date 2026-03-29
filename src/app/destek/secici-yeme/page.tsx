@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   title: "Seçici Yeme Nedir? Çocuğum Neden Yemiyor? — Tok Bebek",
   description: "Neofobia ve seçici yeme davranışı olan çocuklar için beslenme rehberi. Bilimsel destekli stratejiler ve aile dostu tarifler.",
   keywords: ["seçici yeme", "çocuk yemek yemiyor", "bebek iştahsızlığı", "neofobia bebek"],
+  alternates: { canonical: "https://tokbebek.com.tr/destek/secici-yeme" },
 };
 
 async function SeciciYemeRecipes() {

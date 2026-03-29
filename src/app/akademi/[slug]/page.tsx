@@ -91,7 +91,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const article = await getArticle(slug);
   if (!article) return {};
 
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? "https://bebi.life";
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? "https://tokbebek.com.tr";
   const url = `${baseUrl}/akademi/${slug}`;
   const categoryKeywords = CATEGORY_KEYWORDS[article.category] ?? [];
 
@@ -142,7 +142,7 @@ export default async function ArticlePage({ params }: PageProps) {
   const categoryBg = CATEGORY_BG[article.category] ?? "from-muted to-muted/50";
   const categoryAccent = CATEGORY_ACCENT[article.category] ?? "text-muted-foreground bg-muted";
 
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? "https://bebi.life";
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? "https://tokbebek.com.tr";
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Article",

@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   title: "Bebeğin Bağışıklığını Güçlendiren Tarifler — Tok Bebek",
   description: "İlk 3 yılda bağışıklık sistemini destekleyen besinler ve tarifler. Çinko, C vitamini, D vitamini ve probiyotik açısından zengin öneriler.",
   keywords: ["bebek bağışıklık güçlendirme", "çocuk bağışıklık tarifleri", "bebek probiyotik", "çocuk D vitamini"],
+  alternates: { canonical: "https://tokbebek.com.tr/destek/bagisiklik" },
 };
 
 async function BagisiklikRecipes() {

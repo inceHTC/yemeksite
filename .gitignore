@@ -51,3 +51,7 @@ toDoList.md
 
 # supabase local config & migrations (may contain sensitive data)
 /supabase/
+
+/.claude/
+
+/.claudeignore/

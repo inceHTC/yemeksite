@@ -7,6 +7,7 @@ import { ArrowRight, Wind, Snowflake, Leaf, UtensilsCrossed, Shield, Droplets, T
 export const metadata: Metadata = {
   title: "Bebek Çözüm Merkezi — Gaz, Diş, Kabızlık, Seçici Yeme ve Daha Fazlası",
   description: "Bebeğinizin gaz sancısı, diş çıkarma, kabızlık, seçici yeme, reflü ve demir eksikliği sorunlarına doğal ve bilimsel çözümler.",
+  alternates: { canonical: "https://tokbebek.com.tr/destek" },
 };
 
 const SOLUTIONS = [

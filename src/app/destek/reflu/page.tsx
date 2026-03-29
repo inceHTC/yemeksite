@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   title: "Bebek Reflüsü: Normal Tükürme mi, GÖR mu? Beslenme Rehberi",
   description: "Bebeklerde reflü ve gastroözofajeal reflü hastalığı (GÖRH) ayrımı. Reflüyü azaltan beslenme stratejileri ve yumuşak tarifler.",
   keywords: ["bebek reflüsü", "bebek geri kaçırma", "GÖR bebek beslenme", "bebek tükürme normal mi"],
+  alternates: { canonical: "https://tokbebek.com.tr/destek/reflu" },
 };
 
 async function RefluRecipes() {
