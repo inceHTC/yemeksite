@@ -26,22 +26,7 @@ export async function updateSession(request: NextRequest) {
     }
   );
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  const { pathname } = request.nextUrl;
-
-// Korumalı rotalar
-  const protectedPaths = ["/profil", "/favorilerim", "/menu-planlayici"];
-  const isProtected = protectedPaths.some((path) => pathname.startsWith(path));
-
-  if (!user && isProtected) {
-    const url = request.nextUrl.clone();
-    url.pathname = "/giris";
-    url.searchParams.set("redirect", pathname);
-    return NextResponse.redirect(url);
-  }
+  await supabase.auth.getUser();
 
   return supabaseResponse;
 }

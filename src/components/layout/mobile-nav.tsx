@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, BookOpen, Search, LifeBuoy, Heart } from "lucide-react";
+import { Home, BookOpen, Search, LifeBuoy, GraduationCap } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navItems = [
@@ -10,7 +10,7 @@ const navItems = [
   { href: "/tarifler", label: "Tarifler", icon: BookOpen, exact: false },
   { href: "/ara", label: "Ara", icon: Search, exact: false },
   { href: "/destek", label: "Çözüm", icon: LifeBuoy, exact: false },
-  { href: "/favorilerim", label: "Favoriler", icon: Heart, exact: false },
+  { href: "/akademi", label: "Dergi", icon: GraduationCap, exact: false },
 ];
 
 export function MobileNav() {

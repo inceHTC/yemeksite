@@ -49,7 +49,7 @@ export function StepBirthDate({ value, onChange, onNext, onBack }: StepBirthDate
           onChange={(e) => setLocalDate(e.target.value)}
           max={today}
           min={minDateStr}
-          className="w-full rounded-2xl border border-border bg-background px-4 py-3 text-lg font-medium focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all"
+          className="w-full rounded-2xl border border-border bg-background px-3 py-3 text-sm sm:text-base font-medium focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all appearance-none"
         />
       </div>
 

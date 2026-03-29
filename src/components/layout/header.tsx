@@ -2,14 +2,12 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Search, Menu, X, ChevronRight, User, LogOut, BookOpen } from "lucide-react";
+import { Search, Menu, X, ChevronRight, BookOpen } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { BabyChip } from "./baby-chip";
 import { UserMenu } from "@/components/auth/user-menu";
 import { createClient } from "@/lib/supabase/client";
-import { signOut } from "@/app/auth/actions";
 import { cn } from "@/lib/utils";
-import type { User as SupabaseUser } from "@supabase/supabase-js";
 
 const NAV_LINKS = [
   { href: "/4-6-ay", label: "🌱 4–6 Ay" },
@@ -60,7 +58,6 @@ function BrandLogo() {
 
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [user, setUser] = useState<SupabaseUser | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
@@ -68,7 +65,6 @@ export function Header() {
 
     async function loadUser() {
       const { data } = await supabase.auth.getUser();
-      setUser(data.user);
       if (data.user) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const { data: profile } = await (supabase as any)
@@ -83,7 +79,6 @@ export function Header() {
     loadUser();
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_e, session) => {
-      setUser(session?.user ?? null);
       if (!session?.user) setIsAdmin(false);
     });
     return () => subscription.unsubscribe();
@@ -91,7 +86,7 @@ export function Header() {
 
   return (
     <>
-      <div className="w-full text-xs py-2 px-4 text-center hidden sm:block" style={{ background: "linear-gradient(90deg, oklch(0.22 0.065 155) 0%, oklch(0.30 0.090 153) 45%, oklch(0.37 0.110 152) 100%)", color: "oklch(0.937 0.016 88)" }}>
+      <div className="w-full text-xs py-2 px-4 text-center" style={{ background: "linear-gradient(90deg, oklch(0.22 0.065 155) 0%, oklch(0.30 0.090 153) 45%, oklch(0.37 0.110 152) 100%)", color: "oklch(0.937 0.016 88)" }}>
         <span className="opacity-80">🌱 Türkiye&apos;nin bebek beslenmesi platformu — </span>
         <Link href="/basla" className="font-semibold hover:opacity-100 opacity-90 transition-opacity underline-offset-2 hover:underline">
           Bebeğini tanıt, kişisel tarifler al →
@@ -140,9 +135,9 @@ export function Header() {
 
               <BabyChip />
 
-              {/* User menu — desktop */}
+              {/* User menu — desktop (sadece admin için) */}
               <div className="hidden lg:block">
-                <UserMenu user={user} isAdmin={isAdmin} />
+                <UserMenu isAdmin={isAdmin} />
               </div>
 
               {/* Search icon — tablet */}
@@ -227,47 +222,6 @@ export function Header() {
                   </motion.div>
                 ))}
 
-                {/* Auth CTAs */}
-                <div className="pt-3 pb-2 border-t border-border/50 mt-1 flex gap-2.5">
-                  {user ? (
-                    <>
-                      <Link
-                        href="/profil"
-                        onClick={() => setMenuOpen(false)}
-                        className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-semibold border border-border text-foreground hover:bg-muted transition-colors"
-                      >
-                        <User className="w-4 h-4" />
-                        Profilim
-                      </Link>
-                      <form action={signOut} className="flex-1">
-                        <button
-                          type="submit"
-                          className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-semibold text-destructive border border-destructive/30 hover:bg-destructive/8 transition-colors"
-                        >
-                          <LogOut className="w-4 h-4" />
-                          Çıkış Yap
-                        </button>
-                      </form>
-                    </>
-                  ) : (
-                    <>
-                      <Link
-                        href="/giris"
-                        onClick={() => setMenuOpen(false)}
-                        className="flex-1 text-center py-2.5 rounded-xl text-sm font-semibold border border-border text-foreground hover:bg-muted transition-colors"
-                      >
-                        Giriş Yap
-                      </Link>
-                      <Link
-                        href="/kayit"
-                        onClick={() => setMenuOpen(false)}
-                        className="flex-1 text-center py-2.5 rounded-xl text-sm font-semibold bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
-                      >
-                        Ücretsiz Başla
-                      </Link>
-                    </>
-                  )}
-                </div>
               </div>
             </motion.div>
           )}

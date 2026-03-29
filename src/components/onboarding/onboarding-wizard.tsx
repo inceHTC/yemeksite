@@ -51,7 +51,6 @@ export function OnboardingWizard() {
       gender: data.gender,
       allergies: data.allergies,
     });
-    completeOnboarding();
     setDone(true);
 
     const stageRoutes: Record<string, string> = {
@@ -65,7 +64,10 @@ export function OnboardingWizard() {
     };
     const age = computeAge(data.birthDate);
     const dest = age ? (stageRoutes[age.stage] ?? "/tarifler") : "/tarifler";
-    setTimeout(() => router.push(dest), 2200);
+    setTimeout(() => {
+      completeOnboarding();
+      router.push(dest);
+    }, 2500);
   }
 
   if (done) {
