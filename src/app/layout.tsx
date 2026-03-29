@@ -30,6 +30,16 @@ export const metadata: Metadata = {
     template: "%s | Tok Bebek",
   },
   manifest: "/manifest.json",
+  icons: {
+    icon: [
+      { url: "/icon.png", type: "image/png", sizes: "512x512" },
+      { url: "/icon-192.png", type: "image/png", sizes: "192x192" },
+    ],
+    apple: [
+      { url: "/apple-icon.png", type: "image/png", sizes: "512x512" },
+    ],
+    shortcut: "/icon.png",
+  },
   appleWebApp: { capable: true, statusBarStyle: "default", title: "Tok Bebek" },
   formatDetection: { telephone: false },
   description:
