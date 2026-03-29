@@ -1,0 +1,39 @@
+{
+  "name": "Tok Bebek — Bebek Yemekleri",
+  "short_name": "Tok Bebek",
+  "description": "4-36 aylık bebekler için bilimsel ve lezzetli yemek tarifleri",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FAFAF8",
+  "theme_color": "#FF6B6B",
+  "orientation": "portrait-primary",
+  "lang": "tr",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["food", "health", "parenting"],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Tarifleri Gözat",
+      "url": "/tarifler",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Gaz Sancısı Çözümü",
+      "url": "/destek/gaz-sancisi",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}

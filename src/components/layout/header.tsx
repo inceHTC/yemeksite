@@ -1,0 +1,278 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { Search, Menu, X, ChevronRight, User, LogOut, BookOpen } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import { BabyChip } from "./baby-chip";
+import { UserMenu } from "@/components/auth/user-menu";
+import { createClient } from "@/lib/supabase/client";
+import { signOut } from "@/app/auth/actions";
+import { cn } from "@/lib/utils";
+import type { User as SupabaseUser } from "@supabase/supabase-js";
+
+const NAV_LINKS = [
+  { href: "/4-6-ay", label: "🌱 4–6 Ay" },
+  { href: "/6-9-ay", label: "🥕 6–9 Ay" },
+  { href: "/9-12-ay", label: "🍲 9–12 Ay" },
+  { href: "/12-24-ay", label: "🍽️ 12–24 Ay" },
+  { href: "/24-36-ay", label: "🧑‍🍳 24–36 Ay" },
+  { href: "/akademi", label: "DERGİ" },
+  { href: "/destek", label: "Çözüm Merkezi" },
+];
+
+function BrandLogo() {
+  return (
+    <Link href="/" className="flex items-center gap-3 shrink-0" aria-label="Tok Bebek - Ana Sayfa">
+
+      {/* Mark — orijinal */}
+      <svg viewBox="0 0 44 44" fill="none" className="w-9 h-9 shrink-0" aria-hidden="true">
+        <circle cx="22" cy="22" r="22" fill="#007a3f" />
+        <circle cx="20" cy="22" r="13" fill="white" />
+        <circle cx="14.5" cy="19" r="2" className="fill-primary" />
+        <circle cx="23.5" cy="19" r="2" className="fill-primary" />
+        <path d="M 14 24.5 Q 19 30 25 24.5" stroke="white" strokeWidth="2" strokeLinecap="round" fill="none" className="stroke-primary" />
+        <ellipse cx="26" cy="27.5" rx="5.5" ry="3.2" className="fill-primary" />
+        <ellipse cx="26" cy="27.5" rx="3.5" ry="1.8" fill="white" opacity="0.35" />
+        <line x1="31" y1="26.5" x2="41" y2="22" stroke="white" strokeWidth="3" strokeLinecap="round" />
+      </svg>
+
+      {/* Wordmark — 3D kabartma */}
+      <div className="flex items-baseline leading-none">
+        <span
+          className="font-heading font-extrabold text-4xl tracking-tight"
+          style={{
+            color: "#007a3f",
+            textShadow: "0 1px 0 #006535, 0 2px 0 #00502a, 0 3px 0 #003d20, 0 4px 0 #002b16, 0 5px 0 #001a0d, 0 5px 12px rgba(0,0,0,0.35)",
+          }}
+        >Tok</span>
+        <span
+          className="font-heading font-extrabold text-4xl tracking-tight"
+          style={{
+            color: "#1c1c1c",
+            textShadow: "0 1px 0 #666, 0 2px 0 #555, 0 3px 0 #444, 0 4px 0 #333, 0 4px 10px rgba(0,0,0,0.3)",
+          }}
+        >Bebek</span>
+      </div>
+    </Link>
+  );
+}
+
+export function Header() {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [user, setUser] = useState<SupabaseUser | null>(null);
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    const supabase = createClient();
+
+    async function loadUser() {
+      const { data } = await supabase.auth.getUser();
+      setUser(data.user);
+      if (data.user) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const { data: profile } = await (supabase as any)
+          .from("profiles")
+          .select("role")
+          .eq("id", data.user.id)
+          .single();
+        setIsAdmin(profile?.role === "admin");
+      }
+    }
+
+    loadUser();
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_e, session) => {
+      setUser(session?.user ?? null);
+      if (!session?.user) setIsAdmin(false);
+    });
+    return () => subscription.unsubscribe();
+  }, []);
+
+  return (
+    <>
+      <div className="w-full text-xs py-2 px-4 text-center hidden sm:block" style={{ background: "linear-gradient(90deg, oklch(0.22 0.065 155) 0%, oklch(0.30 0.090 153) 45%, oklch(0.37 0.110 152) 100%)", color: "oklch(0.937 0.016 88)" }}>
+        <span className="opacity-80">🌱 Türkiye&apos;nin bebek beslenmesi platformu — </span>
+        <Link href="/basla" className="font-semibold hover:opacity-100 opacity-90 transition-opacity underline-offset-2 hover:underline">
+          Bebeğini tanıt, kişisel tarifler al →
+        </Link>
+      </div>
+      <header className="sticky top-0 z-50 w-full border-b border-border bg-card/95 backdrop-blur-md shadow-soft">
+        <div className="w-full px-4 xl:px-8">
+          <div className="relative flex h-[62px] items-center">
+            {/* Sol — Logo */}
+            <BrandLogo />
+
+            {/* Orta — Desktop nav */}
+            <nav className="hidden lg:flex items-center gap-0.5 mx-auto">
+              {NAV_LINKS.map((link) =>
+                link.href === "/akademi" ? (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className="ml-1 flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-sm font-bold bg-primary/10 text-primary hover:bg-primary/20 border border-primary/20 hover:border-primary/40 transition-all whitespace-nowrap"
+                  >
+                    <BookOpen className="w-3.5 h-3.5" />
+                    {link.label}
+                  </Link>
+                ) : (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className="px-3 py-1.5 rounded-full text-sm font-medium text-foreground/75 hover:text-foreground hover:bg-primary/8 transition-colors whitespace-nowrap"
+                  >
+                    {link.label}
+                  </Link>
+                )
+              )}
+            </nav>
+
+            {/* Sağ — Arama + Bebek + Kullanıcı */}
+            <div className="flex items-center gap-2 ml-auto">
+              {/* Search bar — desktop */}
+              <Link
+                href="/ara"
+                className="hidden lg:flex items-center gap-2 rounded-xl border border-border/50 bg-muted/30 hover:bg-muted/50 hover:border-primary/30 active:bg-muted/20 active:scale-95 active:border-primary/20 transition-all px-3.5 py-2 text-sm text-foreground/40 hover:text-foreground/60 w-44"
+              >
+                <Search className="w-4 h-4 shrink-0 text-primary/70" />
+                <span>Tarif ara…</span>
+              </Link>
+
+              <BabyChip />
+
+              {/* User menu — desktop */}
+              <div className="hidden lg:block">
+                <UserMenu user={user} isAdmin={isAdmin} />
+              </div>
+
+              {/* Search icon — tablet */}
+              <Link
+                href="/ara"
+                className="hidden md:flex lg:hidden items-center justify-center w-9 h-9 rounded-xl border border-border bg-muted/60 hover:bg-muted transition-colors"
+                aria-label="Ara"
+              >
+                <Search className="w-4 h-4 text-primary/70" />
+              </Link>
+
+              {/* Search icon — mobile */}
+              <Link
+                href="/ara"
+                className="md:hidden flex items-center justify-center w-9 h-9 rounded-xl hover:bg-muted transition-colors"
+                aria-label="Ara"
+              >
+                <Search className="w-[17px] h-[17px]" />
+              </Link>
+
+              {/* Hamburger — below lg */}
+              <button
+                onClick={() => setMenuOpen((o) => !o)}
+                aria-label={menuOpen ? "Menüyü kapat" : "Menüyü aç"}
+                aria-expanded={menuOpen}
+                className={cn(
+                  "lg:hidden flex items-center justify-center w-9 h-9 rounded-xl transition-colors",
+                  menuOpen ? "bg-muted" : "hover:bg-muted"
+                )}
+              >
+                <AnimatePresence mode="wait" initial={false}>
+                  {menuOpen ? (
+                    <motion.span key="close" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.15 }}>
+                      <X className="w-[17px] h-[17px]" />
+                    </motion.span>
+                  ) : (
+                    <motion.span key="open" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.15 }}>
+                      <Menu className="w-[17px] h-[17px]" />
+                    </motion.span>
+                  )}
+                </AnimatePresence>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile dropdown menu */}
+        <AnimatePresence>
+          {menuOpen && (
+            <motion.div
+              key="mobile-menu"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
+              className="lg:hidden overflow-hidden border-t border-border bg-card/98 backdrop-blur-xl"
+            >
+              <div className="container mx-auto px-4 max-w-7xl py-3 space-y-0.5">
+                {NAV_LINKS.map((link, i) => (
+                  <motion.div
+                    key={link.href}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.04, duration: 0.18 }}
+                  >
+                    <Link
+                      href={link.href}
+                      onClick={() => setMenuOpen(false)}
+                      className={cn(
+                        "flex items-center justify-between px-4 py-3.5 rounded-xl text-sm font-medium transition-colors",
+                        link.href === "/akademi"
+                          ? "bg-primary/8 text-primary font-bold hover:bg-primary/15 border border-primary/15"
+                          : "text-foreground hover:bg-muted"
+                      )}
+                    >
+                      <span className="flex items-center gap-2">
+                        {link.href === "/akademi" && <BookOpen className="w-4 h-4" />}
+                        {link.label}
+                      </span>
+                      <ChevronRight className="w-4 h-4 text-muted-foreground" />
+                    </Link>
+                  </motion.div>
+                ))}
+
+                {/* Auth CTAs */}
+                <div className="pt-3 pb-2 border-t border-border/50 mt-1 flex gap-2.5">
+                  {user ? (
+                    <>
+                      <Link
+                        href="/profil"
+                        onClick={() => setMenuOpen(false)}
+                        className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-semibold border border-border text-foreground hover:bg-muted transition-colors"
+                      >
+                        <User className="w-4 h-4" />
+                        Profilim
+                      </Link>
+                      <form action={signOut} className="flex-1">
+                        <button
+                          type="submit"
+                          className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-semibold text-destructive border border-destructive/30 hover:bg-destructive/8 transition-colors"
+                        >
+                          <LogOut className="w-4 h-4" />
+                          Çıkış Yap
+                        </button>
+                      </form>
+                    </>
+                  ) : (
+                    <>
+                      <Link
+                        href="/giris"
+                        onClick={() => setMenuOpen(false)}
+                        className="flex-1 text-center py-2.5 rounded-xl text-sm font-semibold border border-border text-foreground hover:bg-muted transition-colors"
+                      >
+                        Giriş Yap
+                      </Link>
+                      <Link
+                        href="/kayit"
+                        onClick={() => setMenuOpen(false)}
+                        className="flex-1 text-center py-2.5 rounded-xl text-sm font-semibold bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
+                      >
+                        Ücretsiz Başla
+                      </Link>
+                    </>
+                  )}
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </header>
+    </>
+  );
+}

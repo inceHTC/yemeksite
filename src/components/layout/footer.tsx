@@ -1,0 +1,141 @@
+import Link from "next/link";
+
+const RECIPE_LINKS = [
+  { href: "/tarifler?ageGroup=4-6", label: "4-6 Ay Tarifleri" },
+  { href: "/tarifler?ageGroup=6-9", label: "6-9 Ay Tarifleri" },
+  { href: "/tarifler?ageGroup=9-12", label: "9-12 Ay Tarifleri" },
+  { href: "/tarifler?ageGroup=12-24", label: "12-24 Ay Tarifleri" },
+  { href: "/tarifler?meal=puree", label: "Püre Tarifleri" },
+  { href: "/tarifler?meal=breakfast", label: "Kahvaltı Tarifleri" },
+  { href: "/tarifler?meal=lunch", label: "Öğle Yemeği Tarifleri" },
+  { href: "/tarifler?freezable=true", label: "Dondurulabilir Tarifler" },
+];
+
+const HEALTH_LINKS = [
+  { href: "/destek/gaz-sancisi", label: "Gaz Sancısına Ne İyi Gelir?" },
+  { href: "/destek/dis-cikarma", label: "Diş Çıkarma Döneminde Beslenme" },
+  { href: "/destek/kabizlik", label: "Bebek Kabızlığı İçin Tarifler" },
+  { href: "/destek/secici-yeme", label: "Seçici Yeme Çözümleri" },
+  { href: "/destek/bagisiklik", label: "Bağışıklık Güçlendiren Tarifler" },
+  { href: "/destek/demir-eksikligi", label: "Demir Eksikliği Tarifleri" },
+  { href: "/destek/ishal", label: "İshalde Ne Yedireyim?" },
+  { href: "/destek/reflu", label: "Bebek Reflüsü Beslenme Rehberi" },
+  { href: "/destek/ates", label: "Ateşli Bebekte Beslenme" },
+];
+
+const COMPANY_LINKS = [
+  { href: "/hakkimizda", label: "Hakkımızda" },
+  { href: "/iletisim", label: "İletişim" },
+  { href: "/akademi", label: "Tok Bebek Dergisi" },
+  { href: "/basla", label: "Bebek Profili Oluştur" },
+  { href: "/gizlilik", label: "Gizlilik Politikası" },
+  { href: "/kullanim-kosullari", label: "Kullanım Koşulları" },
+];
+
+export function Footer() {
+  return (
+    <footer className="border-t border-border bg-muted/30 mt-16">
+      <div className="container mx-auto px-4 py-12 max-w-7xl">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
+          {/* Marka */}
+          <div className="space-y-3">
+            <Link href="/" className="inline-flex items-center gap-2.5">
+              <svg viewBox="0 0 44 44" fill="none" className="w-9 h-9 shrink-0" aria-hidden="true">
+                {/* Daire arka plan */}
+                <circle cx="22" cy="22" r="22" fill="#007a3f" />
+
+                {/* Bebek yüzü */}
+                <circle cx="20" cy="22" r="13" fill="white" />
+
+                {/* Gözler */}
+                <circle cx="14.5" cy="19" r="2" className="fill-primary" />
+                <circle cx="23.5" cy="19" r="2" className="fill-primary" />
+
+                {/* Gülen ağız */}
+                <path d="M 14 24.5 Q 19 30 25 24.5" stroke="white" strokeWidth="2" strokeLinecap="round" fill="none" className="stroke-primary" />
+
+                {/* Kaşık ovalı — ağzın önünde, mama dolu */}
+                <ellipse cx="26" cy="27.5" rx="5.5" ry="3.2" className="fill-primary" />
+                <ellipse cx="26" cy="27.5" rx="3.5" ry="1.8" fill="white" opacity="0.35" />
+
+                {/* Kaşık sapı — sağa uzanıyor */}
+                <line x1="31" y1="26.5" x2="41" y2="22" stroke="white" strokeWidth="3" strokeLinecap="round" />
+              </svg>
+
+              <div className="flex items-baseline leading-none">
+                <span
+                  className="font-heading font-extrabold text-4xl tracking-tight"
+                  style={{
+                    color: "#007a3f",
+                    textShadow: "0 1px 0 #006535, 0 2px 0 #00502a, 0 3px 0 #003d20, 0 4px 0 #002b16, 0 5px 0 #001a0d, 0 5px 12px rgba(0,0,0,0.35)",
+                  }}
+                >Tok</span>
+                <span
+                  className="font-heading font-extrabold text-4xl tracking-tight"
+                  style={{
+                    color: "#1c1c1c",
+                    textShadow: "0 1px 0 #666, 0 2px 0 #555, 0 3px 0 #444, 0 4px 0 #333, 0 4px 10px rgba(0,0,0,0.3)",
+                  }}
+                >Bebek</span>
+              </div>
+            </Link>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              4–36 aylık bebekler için bilimsel temelli, lezzetli ve güvenli yemek tarifleri.
+              WHO ve AAP rehberlerine uygun içerik.
+            </p>
+            <p className="text-xs text-muted-foreground italic">
+              ⚠️ Bu site tıbbi tavsiye vermez. Doktorunuza danışın.
+            </p>
+          </div>
+
+          {/* Tarifler */}
+          <div>
+            <h3 className="font-heading font-bold text-sm uppercase tracking-wide mb-3">Tarifler</h3>
+            <ul className="space-y-2">
+              {RECIPE_LINKS.map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href} className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Sağlık & Çözüm */}
+          <div>
+            <h3 className="font-heading font-bold text-sm uppercase tracking-wide mb-3">Çözüm Merkezi</h3>
+            <ul className="space-y-2">
+              {HEALTH_LINKS.map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href} className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Şirket */}
+          <div>
+            <h3 className="font-heading font-bold text-sm uppercase tracking-wide mb-3">Tok Bebek</h3>
+            <ul className="space-y-2">
+              {COMPANY_LINKS.map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href} className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <div className="border-t border-border pt-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-muted-foreground">
+          <p>© {new Date().getFullYear()} Tok Bebek. Tüm hakları saklıdır.</p>
+          <p>Türkiye&apos;nin bebek beslenmesi platformu 🇹🇷</p>
+        </div>
+      </div>
+    </footer>
+  );
+}
