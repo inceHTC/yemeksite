@@ -11,6 +11,7 @@ import { IngredientScaler } from "@/components/recipe/ingredient-scaler";
 import { CookingSteps } from "@/components/recipe/cooking-steps";
 import { NutritionVisual } from "@/components/recipe/nutrition-visual";
 import { getRecipeBySlug, getRelatedRecipes, getAllSlugs, incrementViewCount } from "@/lib/supabase/recipes";
+import { getReviews } from "@/app/tarifler/actions";
 import { Breadcrumb } from "@/components/shared/breadcrumb";
 import { ReviewsList } from "@/components/recipe/reviews-list";
 import { ReviewFormToggle } from "@/components/recipe/review-form-toggle";
@@ -96,6 +97,12 @@ export default async function RecipeDetailPage({ params }: PageProps) {
   const nutrition = recipe.nutritional_info as Record<string, number> | null;
   const totalTime = recipe.prep_time_min + recipe.cook_time_min;
 
+  // Onaylı yorumlardan rating verisi
+  const reviews = await getReviews(recipe.id);
+  const ratingData = reviews.length > 0
+    ? { avg: reviews.reduce((s: number, r: { rating: number }) => s + r.rating, 0) / reviews.length, count: reviews.length }
+    : null;
+
   const tags = [
     MEAL_TYPE_LABEL[recipe.meal_type],
     ...(recipe.health_tags?.map((t) => HEALTH_TAG_LABEL[t] ?? t) ?? []),
@@ -106,7 +113,7 @@ export default async function RecipeDetailPage({ params }: PageProps) {
 
   return (
     <>
-      <RecipeSchema recipe={recipe} url={recipeUrl} />
+      <RecipeSchema recipe={recipe} url={recipeUrl} ratingData={ratingData} />
       <Header />
       <main className="flex-1 pb-24 sm:pb-0">
         <article className="container mx-auto px-4 max-w-xl">

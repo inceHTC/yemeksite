@@ -45,9 +45,13 @@ export const metadata: Metadata = {
   description:
     "Bebeğinizin yaşına özel, bilimsel ve lezzetli yemek tarifleri. WHO ve AAP verilerine dayalı, Türkiye'nin en kapsamlı bebek beslenmesi platformu.",
   keywords: [
-    "bebek yemekleri", "bebek tarifleri", "tamamlayıcı besin", "bebek beslenmesi",
+    "bebek yemek tarifleri", "bebek yemekleri", "bebek tarifleri",
+    "tamamlayıcı besin", "bebek beslenmesi", "ek gıdaya geçiş",
     "püre tarifleri", "bebek püresi", "ek gıda", "tamamlayıcı beslenme",
-    "4 aylık bebek yemeği", "6 aylık bebek yemeği", "bebek beslenmesi rehberi",
+    "4 aylık bebek yemeği", "6 aylık bebek yemeği", "7 aylık bebek yemeği",
+    "8 aylık bebek yemeği", "9 aylık bebek yemeği", "10 aylık bebek yemeği",
+    "12 aylık bebek yemeği", "bebek beslenmesi rehberi", "katı gıdaya geçiş",
+    "bebek kahvaltısı", "bebek çorbası", "bebek sebze püresi",
   ],
   authors: [{ name: "Tok Bebek" }],
   creator: "Tok Bebek",
