@@ -200,35 +200,12 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ═══ KAYAN ŞERİT ═══ */}
-        <div className="bg-foreground/90 py-3 overflow-hidden">
-          <div className="flex animate-marquee whitespace-nowrap">
-            {[0, 1].map((i) => (
-              <div key={i} className="flex items-center shrink-0">
-                {[
-                  { icon: "🌿", text: "Allerji dostu tarifler" },
-                  { icon: "👶", text: "4–36 ay bebek beslenmesi" },
-                  { icon: "🥗", text: "Sağlıklı & güvenli tarifler" },
-                  { icon: "💛", text: "Anne & bebek dostu" },
-                  { icon: "❄️", text: "Dondurulabilir tarifler" },
-                  { icon: "🌾", text: "Glutensiz seçenekler" },
-                  { icon: "📅", text: "Haftalık menü planlayıcı" },
-                  { icon: "📖", text: "Tok Bebek Dergisi" },
-                  { icon: "✨", text: "Uzman onaylı içerikler" },
-                  { icon: "🍼", text: "Bebeğine özel öneriler" },
-                  { icon: "🚨", text: "Çözüm Merkezi — Gaz, kabızlık, seçici yeme" },
-                  { icon: "🧠", text: "Beslenme rehberleri & uzman içerikler" },
-                  { icon: "📸", text: "Instagram'da takip et — @tok_bebek" },
-                ].map(({ icon, text }) => (
-                  <span key={text} className="inline-flex items-center gap-2 mx-6 text-xs font-medium text-background/75 tracking-wide">
-                    <span>{icon}</span>
-                    <span>{text}</span>
-                    <span className="ml-6 w-1 h-1 rounded-full bg-background/25 inline-block" />
-                  </span>
-                ))}
-              </div>
-            ))}
-          </div>
+        {/* ═══ BEBEĞİNİ TANIT BANDI ═══ */}
+        <div className="bg-foreground/90 py-3 px-4 text-center">
+          <span className="text-xs opacity-75 text-background" style={{ color: "oklch(0.937 0.016 88)" }}>🌱 Türkiye&apos;nin bebek beslenmesi platformu — </span>
+          <Link href="/basla" className="text-xs font-semibold hover:opacity-100 opacity-90 transition-opacity underline-offset-2 hover:underline" style={{ color: "oklch(0.937 0.016 88)" }}>
+            Bebeğini tanıt, kişisel tarifler al →
+          </Link>
         </div>
 
         <div className="container mx-auto px-4 max-w-6xl space-y-16 py-10">

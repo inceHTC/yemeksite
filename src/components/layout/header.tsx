@@ -87,11 +87,34 @@ export function Header() {
 
   return (
     <>
-      <div className="w-full text-xs py-2 px-4 text-center" style={{ background: "linear-gradient(90deg, oklch(0.22 0.065 155) 0%, oklch(0.30 0.090 153) 45%, oklch(0.37 0.110 152) 100%)", color: "oklch(0.937 0.016 88)" }}>
-        <span className="opacity-80">🌱 Türkiye&apos;nin bebek beslenmesi platformu — </span>
-        <Link href="/basla" className="font-semibold hover:opacity-100 opacity-90 transition-opacity underline-offset-2 hover:underline">
-          Bebeğini tanıt, kişisel tarifler al →
-        </Link>
+      <div className="w-full overflow-hidden py-2" style={{ background: "linear-gradient(90deg, oklch(0.22 0.065 155) 0%, oklch(0.30 0.090 153) 45%, oklch(0.37 0.110 152) 100%)", color: "oklch(0.937 0.016 88)" }}>
+        <div className="flex animate-marquee whitespace-nowrap">
+          {[0, 1].map((i) => (
+            <div key={i} className="flex items-center shrink-0">
+              {[
+                { icon: "🌿", text: "Allerji dostu tarifler" },
+                { icon: "👶", text: "4–36 ay bebek beslenmesi" },
+                { icon: "🥗", text: "Sağlıklı & güvenli tarifler" },
+                { icon: "💛", text: "Anne & bebek dostu" },
+                { icon: "❄️", text: "Dondurulabilir tarifler" },
+                { icon: "🌾", text: "Glutensiz seçenekler" },
+                { icon: "📅", text: "Haftalık menü planlayıcı" },
+                { icon: "📖", text: "Tok Bebek Dergisi" },
+                { icon: "✨", text: "Uzman onaylı içerikler" },
+                { icon: "🍼", text: "Bebeğine özel öneriler" },
+                { icon: "🚨", text: "Çözüm Merkezi — Gaz, kabızlık, seçici yeme" },
+                { icon: "🧠", text: "Beslenme rehberleri & uzman içerikler" },
+                { icon: "📸", text: "Instagram'da takip et — @tok_bebek" },
+              ].map(({ icon, text }) => (
+                <span key={text} className="inline-flex items-center gap-2 mx-6 text-xs font-medium opacity-85 tracking-wide">
+                  <span>{icon}</span>
+                  <span>{text}</span>
+                  <span className="ml-6 w-1 h-1 rounded-full bg-current opacity-30 inline-block" />
+                </span>
+              ))}
+            </div>
+          ))}
+        </div>
       </div>
       <header className="sticky top-0 z-50 w-full border-b border-border bg-card/95 backdrop-blur-md shadow-soft">
         <div className="w-full px-4 xl:px-8">
