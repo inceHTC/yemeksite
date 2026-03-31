@@ -88,12 +88,12 @@ export default function IletisimPage() {
               {/* Direkt e-posta */}
               <div className="rounded-2xl border border-border bg-muted/30 p-5">
                 <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground/60 mb-3">Direkt İletişim</p>
-                <a href="mailto:info@tokbebek.com" className="flex items-center gap-3 group">
+                <a href="mailto:tokbebekiletisim@gmail.com" className="flex items-center gap-3 group">
                   <div className="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
                     <Mail className="w-4 h-4 text-primary" />
                   </div>
                   <div>
-                    <p className="text-sm font-semibold group-hover:text-primary transition-colors">info@tokbebek.com</p>
+                    <p className="text-sm  group-hover:text-primary transition-colors">tokbebekiletisim@gmail.com</p>
                     <p className="text-xs text-muted-foreground">Genellikle 1–2 iş günü içinde yanıt</p>
                   </div>
                 </a>

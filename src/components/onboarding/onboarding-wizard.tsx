@@ -3,10 +3,11 @@
 import { useState, useEffect } from "react";
 import { computeAge } from "@/lib/age";
 import { motion, AnimatePresence } from "framer-motion";
-import { useBabyStore, type Allergen } from "@/store/baby-store";
+import { useBabyStore, type Allergen, type FeedingType } from "@/store/baby-store";
 import { StepName } from "./step-name";
 import { StepBirthDate } from "./step-birthdate";
 import { StepAllergies } from "./step-allergies";
+import { StepExtra } from "./step-extra";
 import { StepComplete } from "./step-complete";
 
 export type OnboardingData = {
@@ -14,16 +15,20 @@ export type OnboardingData = {
   birthDate: string;
   gender: "girl" | "boy";
   allergies: Allergen[];
+  feedingType: FeedingType;
+  healthMode: string;
+  parentName: string;
 };
 
-const TOTAL_STEPS = 3;
+const TOTAL_STEPS = 4;
 
 export function OnboardingWizard() {
-  const { setBaby, completeOnboarding } = useBabyStore();
+  const { setBaby, setHealthMode, completeOnboarding } = useBabyStore();
 
   const [step, setStep] = useState(1);
   const [done, setDone] = useState(false);
   const [destination, setDestination] = useState("/tarifler");
+  const [confirmedAllergies, setConfirmedAllergies] = useState<Allergen[]>([]);
 
   useEffect(() => {
     if (done) window.scrollTo({ top: 0, behavior: "instant" });
@@ -31,8 +36,11 @@ export function OnboardingWizard() {
   const [data, setData] = useState<OnboardingData>({
     name: "",
     birthDate: "",
-    gender: "girl", // default değişti
+    gender: "girl",
     allergies: [],
+    feedingType: null,
+    healthMode: "normal",
+    parentName: "",
   });
 
   function updateData(partial: Partial<OnboardingData>) {
@@ -47,13 +55,22 @@ export function OnboardingWizard() {
     setStep((s) => Math.max(s - 1, 1));
   }
 
-  function finish() {
+  function finishAllergies(allergies: Allergen[]) {
+    setConfirmedAllergies(allergies);
+    updateData({ allergies });
+    next();
+  }
+
+  function finish(extraData: { feedingType: FeedingType; healthMode: string; parentName: string }) {
     setBaby({
       name: data.name,
       birthDate: data.birthDate,
       gender: data.gender,
-      allergies: data.allergies,
+      allergies: confirmedAllergies,
+      feedingType: extraData.feedingType,
+      parentName: extraData.parentName,
     });
+    setHealthMode(extraData.healthMode as "normal" | "teething" | "gassy" | "picky");
     setDone(true);
 
     const stageRoutes: Record<string, string> = {
@@ -150,6 +167,24 @@ export function OnboardingWizard() {
               <StepAllergies
                 value={data.allergies}
                 onChange={(allergies) => updateData({ allergies })}
+                onFinish={finishAllergies}
+                onBack={back}
+              />
+            </motion.div>
+          )}
+
+          {step === 4 && (
+            <motion.div
+              key="step-4"
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -30 }}
+              transition={{ duration: 0.25 }}
+            >
+              <StepExtra
+                feedingType={data.feedingType}
+                healthMode={data.healthMode}
+                onChange={(d) => updateData(d)}
                 onFinish={finish}
                 onBack={back}
               />

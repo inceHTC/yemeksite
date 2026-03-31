@@ -11,13 +11,16 @@ export type Allergen =
   | "sesame";
 
 export type HealthMode = "normal" | "teething" | "gassy" | "picky";
+export type FeedingType = "breast" | "formula" | "mixed" | null;
 
 export interface BabyProfile {
   name: string;
   birthDate: string | null;
-  gender: "girl" | "boy"; // 🔥 unknown kaldırıldı
+  gender: "girl" | "boy";
   allergies: Allergen[];
   notes: string;
+  feedingType: FeedingType;
+  parentName: string;
 }
 
 interface BabyStore {
@@ -34,9 +37,11 @@ interface BabyStore {
 const defaultBaby: BabyProfile = {
   name: "",
   birthDate: null,
-  gender: "girl", // 🔥 default değişti
+  gender: "girl",
   allergies: [],
   notes: "",
+  feedingType: null,
+  parentName: "",
 };
 
 export const useBabyStore = create<BabyStore>()(

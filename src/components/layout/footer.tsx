@@ -142,9 +142,17 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-border pt-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-muted-foreground">
-          <p>© {new Date().getFullYear()} Tok Bebek. Tüm hakları saklıdır.</p>
-          <p>Türkiye&apos;nin bebek beslenmesi platformu 🇹🇷</p>
+        <div className="border-t border-border pt-6 space-y-3">
+          <p className="text-xs text-muted-foreground text-center leading-relaxed">
+            Bu sitedeki tüm tarif, metin, görsel ve içerikler Tok Bebek&apos;e aittir.{" "}
+            <strong className="text-foreground/70">İzinsiz kopyalanması, paylaşılması veya yayımlanması yasaktır.</strong>{" "}
+            İçeriklerimizi kullanmak için{" "}
+            <a href="/iletisim" className="underline hover:text-foreground transition-colors">iletişime geçin</a>.
+          </p>
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-muted-foreground">
+            <p>© {new Date().getFullYear()} Tok Bebek. Tüm hakları saklıdır.</p>
+            <p>Türkiye&apos;nin bebek beslenmesi platformu 🇹🇷</p>
+          </div>
         </div>
       </div>
     </footer>

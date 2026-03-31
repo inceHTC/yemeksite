@@ -24,7 +24,7 @@ const ALLERGEN_OPTIONS: AllergenOption[] = [
 interface StepAllergiesProps {
   value: Allergen[];
   onChange: (allergies: Allergen[]) => void;
-  onFinish: () => void;
+  onFinish: (allergies: Allergen[]) => void;
   onBack: () => void;
 }
 
@@ -48,7 +48,7 @@ export function StepAllergies({ value, onChange, onFinish, onBack }: StepAllergi
 
   function handleFinish() {
     onChange(selected);
-    onFinish();
+    onFinish(selected);
   }
 
   return (
@@ -134,7 +134,7 @@ export function StepAllergies({ value, onChange, onFinish, onBack }: StepAllergi
           onClick={handleFinish}
           className="flex-2 flex-grow rounded-2xl h-12 text-base font-semibold"
         >
-          Profil Oluştur 🎉
+          İleri →
         </Button>
       </div>
     </div>
