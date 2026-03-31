@@ -12,6 +12,10 @@ import { CookingSteps } from "@/components/recipe/cooking-steps";
 import { NutritionVisual } from "@/components/recipe/nutrition-visual";
 import { getRecipeBySlug, getRelatedRecipes, getAllSlugs, incrementViewCount } from "@/lib/supabase/recipes";
 import { Breadcrumb } from "@/components/shared/breadcrumb";
+import { ReviewsList } from "@/components/recipe/reviews-list";
+import { ReviewFormToggle } from "@/components/recipe/review-form-toggle";
+import { RecipeVideo } from "@/components/recipe/recipe-video";
+import { Suspense } from "react";
 
 export async function generateStaticParams() {
   const slugs = await getAllSlugs();
@@ -217,6 +221,25 @@ export default async function RecipeDetailPage({ params }: PageProps) {
               </div>
             )}
           </div>
+
+          {/* Video */}
+          {(recipe as any).video_url && (
+            <section className="mb-6">
+              <h2 className="font-heading text-lg font-bold mb-3">Hazırlanışı İzle</h2>
+              <RecipeVideo url={(recipe as any).video_url} />
+            </section>
+          )}
+
+          {/* Yorumlar */}
+          <section className="mb-6">
+            <h2 className="font-heading text-lg font-bold mb-4">Yorumlar</h2>
+            <div className="space-y-5">
+              <Suspense fallback={<div className="h-24 rounded-2xl bg-muted animate-pulse" />}>
+                <ReviewsList recipeId={recipe.id} />
+              </Suspense>
+              <ReviewFormToggle recipeId={recipe.id} />
+            </div>
+          </section>
 
           {/* Benzer Tarifler */}
           {related.length > 0 && (

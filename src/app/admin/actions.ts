@@ -38,6 +38,7 @@ export interface RecipeInput {
   health_tags: string[];
   nutritional_info: Record<string, number>;
   instructions: string | null;
+  video_url: string | null;
   is_published: boolean;
   ingredients: IngredientInput[];
 }

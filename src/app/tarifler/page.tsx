@@ -6,6 +6,7 @@ import { RecipeFilters } from "@/components/recipe/recipe-filters";
 import { RecipeGrid } from "@/components/recipe/recipe-grid";
 import { RecipeGridSkeleton } from "@/components/recipe/recipe-card-skeleton";
 import { Breadcrumb } from "@/components/shared/breadcrumb";
+import { AllergyFilterBanner } from "@/components/recipe/allergy-filter-banner";
 
 export const metadata: Metadata = {
   title: "Bebek Yemekleri Tarifleri",
@@ -45,6 +46,9 @@ export default async function TariflerPage({ searchParams }: PageProps) {
 
             {/* Tarif Grid */}
             <div className="flex-1 min-w-0">
+              <Suspense fallback={null}>
+                <AllergyFilterBanner />
+              </Suspense>
               <Suspense fallback={<RecipeGridSkeleton count={6} />}>
                 <RecipeGrid searchParams={params} />
               </Suspense>

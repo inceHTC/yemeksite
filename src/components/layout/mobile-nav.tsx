@@ -2,15 +2,15 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, BookOpen, Search, LifeBuoy, GraduationCap } from "lucide-react";
+import { Home, BookOpen, Search, CalendarDays, GraduationCap } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navItems = [
-  { href: "/", label: "Ana Sayfa", icon: Home, exact: true },
-  { href: "/tarifler", label: "Tarifler", icon: BookOpen, exact: false },
-  { href: "/ara", label: "Ara", icon: Search, exact: false },
-  { href: "/destek", label: "Çözüm", icon: LifeBuoy, exact: false },
-  { href: "/akademi", label: "Dergi", icon: GraduationCap, exact: false },
+  { href: "/",        label: "Ana Sayfa", icon: Home,          exact: true },
+  { href: "/tarifler",label: "Tarifler",  icon: BookOpen,      exact: false },
+  { href: "/ara",     label: "Ara",       icon: Search,        exact: false },
+  { href: "/menu",    label: "Menü",      icon: CalendarDays,  exact: false },
+  { href: "/akademi", label: "Dergi",     icon: GraduationCap, exact: false },
 ];
 
 export function MobileNav() {

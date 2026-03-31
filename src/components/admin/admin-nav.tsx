@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, UtensilsCrossed, PlusCircle, BookOpen, FilePlus2, ChevronRight } from "lucide-react";
+import { LayoutDashboard, UtensilsCrossed, PlusCircle, BookOpen, FilePlus2, ChevronRight, MessageSquare } from "lucide-react";
 
 const NAV_SECTIONS = [
   {
@@ -23,6 +23,12 @@ const NAV_SECTIONS = [
     items: [
       { href: "/admin/akademi", label: "Tüm Makaleler", icon: BookOpen, exact: false },
       { href: "/admin/akademi/yeni", label: "Yeni Makale", icon: FilePlus2, exact: true },
+    ],
+  },
+  {
+    label: "Topluluk",
+    items: [
+      { href: "/admin/yorumlar", label: "Yorumlar", icon: MessageSquare, exact: false },
     ],
   },
 ];

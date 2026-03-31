@@ -72,20 +72,19 @@ export function HomeContent() {
       {/* Hero */}
       <section className="py-16 text-center">
         <div className="mx-auto max-w-2xl space-y-6">
-          <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-2 text-sm font-medium text-primary">
-            <span>🌱</span>
-            <span>Türkiye&apos;nin en kapsamlı bebek beslenmesi platformu</span>
+          <div className="inline-flex items-center gap-2 rounded-full bg-muted px-4 py-1.5 text-xs font-medium text-muted-foreground">
+            <span className="w-1.5 h-1.5 rounded-full bg-primary inline-block" />
+            6–36 ay · Allerji dostu · Türkçe içerik
           </div>
 
           <h1 className="font-heading text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
-            Bebeğiniz için{" "}
-            <span className="text-primary">mükemmel tarifler</span>
-            {" "}her zaman hazır
+            Ne pişirsem?{" "}
+            <span className="text-primary">Biz hallettik.</span>
           </h1>
 
           <p className="text-lg text-muted-foreground">
-            Bebeğinizin tam yaşına, alerjilerine ve o anki ihtiyacına göre
-            kişiselleştirilmiş, bilimsel temelli yemek tarifleri.
+            Bebeğinin yaşına ve alerjilerine göre tarifler —
+            güvenle bul, dakikalar içinde hazırla.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-3 justify-center">

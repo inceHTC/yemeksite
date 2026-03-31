@@ -6,10 +6,10 @@ import { createClient } from "@/lib/supabase/server";
 import type { Article } from "@/types/supabase";
 import { MobileNav } from "@/components/layout/mobile-nav";
 import { ReadingProgress } from "@/components/shared/reading-progress";
+import { BackButton } from "@/components/shared/back-button";
 import {
   Clock,
   BookOpen,
-  ChevronLeft,
   ExternalLink,
   ArrowRight,
   Calendar,
@@ -176,17 +176,10 @@ export default async function ArticlePage({ params }: PageProps) {
       {/* Floating top nav */}
       <div className="sticky top-0 z-40 backdrop-blur-md bg-background/80 border-b border-border/60">
         <div className="max-w-3xl mx-auto px-4 h-12 flex items-center justify-between gap-4">
-          <Link
-            href="/akademi"
-            className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
-          >
-            <ChevronLeft className="w-4 h-4" />
-            <span className="hidden sm:inline">Dergi</span>
-            <span className="sm:hidden">Geri</span>
-          </Link>
+          <BackButton fallbackHref="/akademi" />
           <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
             <BookOpen className="w-3.5 h-3.5" />
-            <span className="font-medium text-foreground truncate max-w-[200px] sm:max-w-none">
+            <span className="font-medium text-foreground truncate max-w-[160px] sm:max-w-xs">
               {article.title}
             </span>
           </div>
@@ -378,13 +371,7 @@ export default async function ArticlePage({ params }: PageProps) {
 
           {/* Back to magazine */}
           <div className="mt-12 text-center">
-            <Link
-              href="/akademi"
-              className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors font-medium"
-            >
-              <ChevronLeft className="w-4 h-4" />
-              Tüm makalelere dön
-            </Link>
+            <BackButton fallbackHref="/akademi" />
           </div>
         </div>
       </main>

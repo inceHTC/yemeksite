@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Search, Menu, X, ChevronRight, BookOpen } from "lucide-react";
+import { Search, Menu, X, ChevronRight, BookOpen, CalendarDays } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { BabyChip } from "./baby-chip";
 import { UserMenu } from "@/components/auth/user-menu";
@@ -15,6 +15,7 @@ const NAV_LINKS = [
   { href: "/9-12-ay", label: "🍲 9–12 Ay" },
   { href: "/12-24-ay", label: "🍽️ 12–24 Ay" },
   { href: "/24-36-ay", label: "🧑‍🍳 24–36 Ay" },
+  { href: "/menu", label: "Haftalık Menü" },
   { href: "/akademi", label: "DERGİ" },
   { href: "/destek", label: "Çözüm Merkezi" },
 ];
@@ -102,20 +103,20 @@ export function Header() {
             <nav className="hidden lg:flex items-center gap-0.5 mx-auto">
               {NAV_LINKS.map((link) =>
                 link.href === "/akademi" ? (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    className="ml-1 flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-sm font-bold bg-primary/10 text-primary hover:bg-primary/20 border border-primary/20 hover:border-primary/40 transition-all whitespace-nowrap"
-                  >
+                  <Link key={link.href} href={link.href}
+                    className="ml-1 flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-sm font-bold bg-primary/10 text-primary hover:bg-primary/20 border border-primary/20 hover:border-primary/40 transition-all whitespace-nowrap">
                     <BookOpen className="w-3.5 h-3.5" />
                     {link.label}
                   </Link>
+                ) : link.href === "/menu" ? (
+                  <Link key={link.href} href={link.href}
+                    className="ml-1 flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-sm font-bold bg-amber-500/10 text-amber-700 dark:text-amber-400 hover:bg-amber-500/20 border border-amber-500/20 hover:border-amber-500/40 transition-all whitespace-nowrap">
+                    <CalendarDays className="w-3.5 h-3.5" />
+                    {link.label}
+                  </Link>
                 ) : (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    className="px-3 py-1.5 rounded-full text-sm font-medium text-foreground/75 hover:text-foreground hover:bg-primary/8 transition-colors whitespace-nowrap"
-                  >
+                  <Link key={link.href} href={link.href}
+                    className="px-3 py-1.5 rounded-full text-sm font-medium text-foreground/75 hover:text-foreground hover:bg-primary/8 transition-colors whitespace-nowrap">
                     {link.label}
                   </Link>
                 )
@@ -210,11 +211,14 @@ export function Header() {
                         "flex items-center justify-between px-4 py-3.5 rounded-xl text-sm font-medium transition-colors",
                         link.href === "/akademi"
                           ? "bg-primary/8 text-primary font-bold hover:bg-primary/15 border border-primary/15"
+                          : link.href === "/menu"
+                          ? "bg-amber-500/8 text-amber-700 dark:text-amber-400 font-bold hover:bg-amber-500/15 border border-amber-500/15"
                           : "text-foreground hover:bg-muted"
                       )}
                     >
                       <span className="flex items-center gap-2">
                         {link.href === "/akademi" && <BookOpen className="w-4 h-4" />}
+                        {link.href === "/menu" && <CalendarDays className="w-4 h-4" />}
                         {link.label}
                       </span>
                       <ChevronRight className="w-4 h-4 text-muted-foreground" />

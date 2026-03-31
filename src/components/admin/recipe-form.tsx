@@ -41,6 +41,7 @@ export function RecipeForm({ initial, action }: Props) {
   const [slug, setSlug] = useState(initial?.slug ?? "");
   const [description, setDescription] = useState(initial?.description ?? "");
   const [imageUrl, setImageUrl] = useState(initial?.image_url ?? "");
+  const [videoUrl, setVideoUrl] = useState((initial as any)?.video_url ?? "");
   const [imageUploading, setImageUploading] = useState(false);
   const [imageError, setImageError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -126,6 +127,7 @@ export function RecipeForm({ initial, action }: Props) {
     const data: RecipeInput = {
       title, slug, description,
       image_url: imageUrl || null,
+      video_url: videoUrl.trim() || null,
       age_min_months: Number(ageMin),
       age_max_months: Number(ageMax),
       prep_time_min: Number(prepTime),
@@ -278,6 +280,18 @@ export function RecipeForm({ initial, action }: Props) {
               </button>
             </div>
           )}
+
+          {/* Video URL */}
+          <div className="col-span-2">
+            <label className={labelCls}>Video URL (isteğe bağlı)</label>
+            <input
+              className={inputCls}
+              value={videoUrl}
+              onChange={(e) => setVideoUrl(e.target.value)}
+              placeholder="https://www.youtube.com/watch?v=... veya https://youtu.be/..."
+            />
+            <p className="text-xs text-muted-foreground mt-1">YouTube linki yapıştırın. Tarif sayfasında otomatik gömülü olarak gösterilir.</p>
+          </div>
 
           <div className="col-span-2">
             <label className={labelCls}>Açıklama *</label>
