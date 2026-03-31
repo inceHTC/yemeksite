@@ -1,7 +1,6 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
 import { computeAge } from "@/lib/age";
 import { motion, AnimatePresence } from "framer-motion";
 import { useBabyStore, type Allergen } from "@/store/baby-store";
@@ -20,11 +19,15 @@ export type OnboardingData = {
 const TOTAL_STEPS = 3;
 
 export function OnboardingWizard() {
-  const router = useRouter();
   const { setBaby, completeOnboarding } = useBabyStore();
 
   const [step, setStep] = useState(1);
   const [done, setDone] = useState(false);
+  const [destination, setDestination] = useState("/tarifler");
+
+  useEffect(() => {
+    if (done) window.scrollTo({ top: 0, behavior: "instant" });
+  }, [done]);
   const [data, setData] = useState<OnboardingData>({
     name: "",
     birthDate: "",
@@ -64,14 +67,12 @@ export function OnboardingWizard() {
     };
     const age = computeAge(data.birthDate);
     const dest = age ? (stageRoutes[age.stage] ?? "/tarifler") : "/tarifler";
-    setTimeout(() => {
-      completeOnboarding();
-      router.push(dest);
-    }, 2500);
+    completeOnboarding();
+    setDestination(dest);
   }
 
   if (done) {
-    return <StepComplete name={data.name} birthDate={data.birthDate} />;
+    return <StepComplete name={data.name} birthDate={data.birthDate} destination={destination} />;
   }
 
   return (

@@ -3,13 +3,16 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { computeAge, STAGE_LABELS } from "@/lib/age";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 interface StepCompleteProps {
   name: string;
   birthDate: string;
+  destination: string;
 }
 
-export function StepComplete({ name, birthDate }: StepCompleteProps) {
+export function StepComplete({ name, birthDate, destination }: StepCompleteProps) {
   const age = computeAge(birthDate);
   const [confetti, setConfetti] = useState<{ id: number; x: number; color: string; delay: number }[]>([]);
 
@@ -60,21 +63,24 @@ export function StepComplete({ name, birthDate }: StepCompleteProps) {
           </div>
         )}
         <p className="text-muted-foreground">
-          Profil oluşturuldu! Sana özel tarifler hazırlanıyor...
+          Profil oluşturuldu! Sana özel tarifler seni bekliyor.
         </p>
       </motion.div>
 
-      {/* Loading dots */}
-      <div className="flex justify-center gap-2">
-        {[0, 1, 2].map((i) => (
-          <motion.div
-            key={i}
-            className="size-2 rounded-full bg-primary"
-            animate={{ scale: [1, 1.4, 1], opacity: [0.5, 1, 0.5] }}
-            transition={{ duration: 0.8, repeat: Infinity, delay: i * 0.2 }}
-          />
-        ))}
-      </div>
+      {/* Buton */}
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.6 }}
+      >
+        <Link
+          href={destination}
+          className="inline-flex items-center gap-2 rounded-full bg-primary text-white px-8 py-3 text-base font-semibold hover:bg-primary/90 transition-all active:scale-95 shadow-lg shadow-primary/25"
+        >
+          Tarifleri Keşfet
+          <ArrowRight className="w-4 h-4" />
+        </Link>
+      </motion.div>
     </div>
   );
 }
