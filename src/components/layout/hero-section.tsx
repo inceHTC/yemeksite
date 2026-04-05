@@ -6,12 +6,12 @@ import { ArrowRight } from "lucide-react";
 
 export function HeroSection() {
   return (
-    <section className="relative w-full overflow-hidden bg-black">
+    <section className="relative w-full overflow-hidden">
 
       {/* ── Mobil görsel (< lg) ── */}
       <div className="relative w-full lg:hidden" style={{ aspectRatio: "1/1" }}>
         <Image
-          src="/1-mobile.jpg"
+          src="/mobile1.jpg"
           alt="Tok Bebek"
           fill
           priority
@@ -33,18 +33,12 @@ export function HeroSection() {
         />
       </div>
 
-      {/* ── Gradient overlay — her iki görsel için ── */}
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/15 via-black/30 to-black/15" />
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+      {/* ── Gradient overlay — sadece yazı okunabilirliği için ── */}
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-black/10" />
 
       {/* ── Yazılar — üst ── */}
       <div className="absolute inset-x-0 top-0 flex flex-col items-center pt-8 sm:pt-10 lg:pt-12 px-4 text-center">
-        <div className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 backdrop-blur-sm px-3.5 py-1.5 mb-4">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#4ade80] animate-pulse" />
-          <span className="text-[10px] sm:text-[11px] font-semibold text-white/85 tracking-wide">
-            Türkiye&apos;nin bebek beslenmesi platformu
-          </span>
-        </div>
+    <br />
         <h1 className="font-heading font-extrabold leading-tight drop-shadow-md mb-3">
           <span className="block text-white text-2xl sm:text-4xl lg:text-5xl">Bebekler Tok,</span>
           <span className="block text-2xl sm:text-4xl lg:text-5xl" style={{ color: "#4ade80" }}>Anneler Mutlu.</span>
