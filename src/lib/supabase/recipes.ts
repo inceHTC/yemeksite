@@ -101,9 +101,11 @@ export async function getRelatedRecipes(
 
   if (!data || data.length === 0) return [];
 
+  const rows = data as RecipeRow[];
+
   // Aynı öğün türünü öne al, kalanları arkaya
-  const sameType = mealType ? data.filter((r) => r.meal_type === mealType) : [];
-  const others = data.filter((r) => r.meal_type !== mealType);
+  const sameType = mealType ? rows.filter((r) => r.meal_type === mealType) : [];
+  const others = rows.filter((r) => r.meal_type !== mealType);
   const pool = [...sameType, ...others];
 
   // Tarif ID'sinden deterministik bir offset türet —
@@ -111,7 +113,7 @@ export async function getRelatedRecipes(
   const seed = recipeId.split("").reduce((acc, c) => acc + c.charCodeAt(0), 0);
   const offset = seed % Math.max(pool.length - limit + 1, 1);
 
-  return pool.slice(offset, offset + limit);
+  return pool.slice(offset, offset + limit) as RecipeRow[];
 }
 
 export async function getAllSlugs(): Promise<{ slug: string }[]> {
