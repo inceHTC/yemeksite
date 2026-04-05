@@ -19,7 +19,7 @@ export async function ReviewsList({ recipeId }: { recipeId: string }) {
     return (
       <div className="text-center py-8">
         <MessageSquare className="w-8 h-8 text-muted-foreground/25 mx-auto mb-2" />
-        <p className="text-sm text-muted-foreground">Henüz onaylanmış yorum yok. İlk yorumu siz yapın!</p>
+        <p className="text-sm text-muted-foreground">Henüz yorum yok. İlk yorumu siz yapın!</p>
       </div>
     );
   }
