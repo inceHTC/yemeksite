@@ -23,7 +23,7 @@ export function HeroSection() {
       {/* ── Masaüstü görsel (lg+) ── */}
       <div className="hidden lg:block w-full">
         <Image
-          src="/hero11.jpg"
+          src="/hero.jpg"
           alt="Tok Bebek — Sağlıklı bebek yemekleri"
           width={1920}
           height={600}
