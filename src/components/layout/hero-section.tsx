@@ -41,7 +41,7 @@ export function HeroSection() {
     <br />
         <h1 className="font-heading font-extrabold leading-tight drop-shadow-md mb-3">
           <span className="block text-white text-2xl sm:text-4xl lg:text-5xl">Bebekler Tok,</span>
-          <span className="block text-2xl sm:text-4xl lg:text-5xl" style={{ color: "#4ade80" }}>Anneler Mutlu.</span>
+          <span className="block text-2xl sm:text-4xl lg:text-5xl" style={{ color: "#000" }}>Anneler Mutlu.</span>
         </h1>
 
       </div>
