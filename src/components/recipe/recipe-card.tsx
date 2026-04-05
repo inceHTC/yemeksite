@@ -38,9 +38,10 @@ function getRecipeEmoji(recipe: RecipeRow): string {
 
 interface RecipeCardProps {
   recipe: RecipeRow;
+  compact?: boolean;
 }
 
-export function RecipeCard({ recipe }: RecipeCardProps) {
+export function RecipeCard({ recipe, compact = false }: RecipeCardProps) {
   const { savedRecipeIds, toggleSaved } = useRecipeStore();
   const haptic = useHaptic();
   const isSaved = savedRecipeIds.includes(recipe.id);
@@ -108,37 +109,41 @@ export function RecipeCard({ recipe }: RecipeCardProps) {
             {recipe.title}
           </h3>
 
-          <div className="flex items-center gap-3 text-xs text-muted-foreground pt-0.5">
-            <span className="flex items-center gap-1">
-              <Clock className="w-3.5 h-3.5" />
-              {totalTime} dk
-            </span>
-            <span className="text-border">·</span>
-            <span className="flex items-center gap-1">
-              <ChefHat className="w-3.5 h-3.5" />
-              {DIFFICULTY_LABEL[recipe.difficulty]}
-            </span>
-          </div>
+          {!compact && (
+            <>
+              <div className="flex items-center gap-3 text-xs text-muted-foreground pt-0.5">
+                <span className="flex items-center gap-1">
+                  <Clock className="w-3.5 h-3.5" />
+                  {totalTime} dk
+                </span>
+                <span className="text-border">·</span>
+                <span className="flex items-center gap-1">
+                  <ChefHat className="w-3.5 h-3.5" />
+                  {DIFFICULTY_LABEL[recipe.difficulty]}
+                </span>
+              </div>
 
-          {/* Diyet etiketleri */}
-          {(recipe.is_dairy_free || recipe.is_gluten_free || recipe.is_sugar_free) && (
-            <div className="flex flex-wrap gap-1 pt-1">
-              {recipe.is_dairy_free && (
-                <span className="rounded-full bg-blue-50 dark:bg-blue-950/30 px-2 py-0.5 text-[0.65rem] font-medium text-blue-600 dark:text-blue-400">
-                  🥛 Sütsüz
-                </span>
+              {/* Diyet etiketleri */}
+              {(recipe.is_dairy_free || recipe.is_gluten_free || recipe.is_sugar_free) && (
+                <div className="flex flex-wrap gap-1 pt-1">
+                  {recipe.is_dairy_free && (
+                    <span className="rounded-full bg-blue-50 dark:bg-blue-950/30 px-2 py-0.5 text-[0.65rem] font-medium text-blue-600 dark:text-blue-400">
+                      🥛 Sütsüz
+                    </span>
+                  )}
+                  {recipe.is_gluten_free && (
+                    <span className="rounded-full bg-amber-50 dark:bg-amber-950/30 px-2 py-0.5 text-[0.65rem] font-medium text-amber-600 dark:text-amber-400">
+                      🌾 Glutensiz
+                    </span>
+                  )}
+                  {recipe.is_sugar_free && (
+                    <span className="rounded-full bg-green-50 dark:bg-green-950/30 px-2 py-0.5 text-[0.65rem] font-medium text-green-600 dark:text-green-400">
+                      🍬 Şekersiz
+                    </span>
+                  )}
+                </div>
               )}
-              {recipe.is_gluten_free && (
-                <span className="rounded-full bg-amber-50 dark:bg-amber-950/30 px-2 py-0.5 text-[0.65rem] font-medium text-amber-600 dark:text-amber-400">
-                  🌾 Glutensiz
-                </span>
-              )}
-              {recipe.is_sugar_free && (
-                <span className="rounded-full bg-green-50 dark:bg-green-950/30 px-2 py-0.5 text-[0.65rem] font-medium text-green-600 dark:text-green-400">
-                  🍬 Şekersiz
-                </span>
-              )}
-            </div>
+            </>
           )}
         </div>
       </Link>

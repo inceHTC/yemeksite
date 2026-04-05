@@ -4,7 +4,7 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ["framer-motion", "lucide-react"],
     serverActions: {
-      bodySizeLimit: "5mb",
+      bodySizeLimit: "9mb",
     },
   },
   images: {

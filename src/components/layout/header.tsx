@@ -1,30 +1,32 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { Search, Menu, X, ChevronRight, BookOpen, CalendarDays } from "lucide-react";
+import { Search, Menu, X, ChevronDown, BookOpen, CalendarDays, LifeBuoy, Baby } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { BabyChip } from "./baby-chip";
 import { UserMenu } from "@/components/auth/user-menu";
 import { createClient } from "@/lib/supabase/client";
 import { cn } from "@/lib/utils";
 
-const NAV_LINKS = [
-  { href: "/4-6-ay", label: "🌱 4–6 Ay" },
-  { href: "/6-9-ay", label: "🥕 6–9 Ay" },
-  { href: "/9-12-ay", label: "🍲 9–12 Ay" },
-  { href: "/12-24-ay", label: "🍽️ 12–24 Ay" },
-  { href: "/24-36-ay", label: "🧑‍🍳 24–36 Ay" },
-  { href: "/menu", label: "Haftalık Menü" },
-  { href: "/akademi", label: "DERGİ" },
-  { href: "/destek", label: "Çözüm Merkezi" },
+const AGE_GROUPS = [
+  { href: "/4-6-ay",   label: "4–6 Ay",   desc: "İlk kaşık deneyimleri",  emoji: "🌱", color: "text-emerald-600 dark:text-emerald-400" },
+  { href: "/6-9-ay",   label: "6–9 Ay",   desc: "Püreli & ezme tarifler", emoji: "🥕", color: "text-orange-500 dark:text-orange-400" },
+  { href: "/9-12-ay",  label: "9–12 Ay",  desc: "Parçalı yemeklere geçiş", emoji: "🍲", color: "text-amber-600 dark:text-amber-400" },
+  { href: "/12-24-ay", label: "12–24 Ay", desc: "Aile sofrası uyarlamaları", emoji: "🍽️", color: "text-sky-600 dark:text-sky-400" },
+  { href: "/24-36-ay", label: "24–36 Ay", desc: "Bağımsız yeme becerileri", emoji: "🧑‍🍳", color: "text-violet-600 dark:text-violet-400" },
+];
+
+const MAIN_LINKS = [
+  { href: "/menu",    label: "HAFTALIK MENÜ", icon: CalendarDays, variant: "amber" as const },
+   { href: "/destek",  label: "ÇÖZÜM MERKEZİ", icon: LifeBuoy,     variant: "default" as const },
+  { href: "/akademi", label: "DERGİ",          icon: BookOpen,     variant: "primary" as const },
+ 
 ];
 
 function BrandLogo() {
   return (
-    <Link href="/" className="flex items-center gap-3 shrink-0" aria-label="Tok Bebek - Ana Sayfa">
-
-      {/* Mark — orijinal */}
+    <Link href="/" className="flex items-center gap-2.5 shrink-0" aria-label="Tok Bebek - Ana Sayfa">
       <svg viewBox="0 0 44 44" fill="none" className="w-9 h-9 shrink-0" aria-hidden="true">
         <circle cx="22" cy="22" r="22" fill="#007a3f" />
         <circle cx="20" cy="22" r="13" fill="white" />
@@ -35,35 +37,96 @@ function BrandLogo() {
         <ellipse cx="26" cy="27.5" rx="3.5" ry="1.8" fill="white" opacity="0.35" />
         <line x1="31" y1="26.5" x2="41" y2="22" stroke="white" strokeWidth="3" strokeLinecap="round" />
       </svg>
-
-      {/* Wordmark — 3D kabartma */}
       <div className="flex items-baseline leading-none">
-        <span
-          className="font-heading font-extrabold text-4xl tracking-tight"
-          style={{
-            color: "#007a3f",
-            textShadow: "0 1px 0 #006535, 0 2px 0 #00502a, 0 3px 0 #003d20, 0 4px 0 #002b16, 0 5px 0 #001a0d, 0 5px 12px rgba(0,0,0,0.35)",
-          }}
-        >Tok</span>
-        <span
-          className="font-heading font-extrabold text-4xl tracking-tight"
-          style={{
-            color: "#1c1c1c",
-            textShadow: "0 1px 0 #666, 0 2px 0 #555, 0 3px 0 #444, 0 4px 0 #333, 0 4px 10px rgba(0,0,0,0.3)",
-          }}
-        >Bebek</span>
+        <span className="font-heading font-extrabold text-[1.7rem] tracking-tight"
+          style={{ color: "#007a3f", textShadow: "0 1px 0 #006535, 0 2px 0 #00502a, 0 3px 0 #003d20, 0 4px 8px rgba(0,0,0,0.25)" }}>Tok</span>
+        <span className="font-heading font-extrabold text-[1.7rem] tracking-tight"
+          style={{ color: "#1c1c1c", textShadow: "0 1px 0 #666, 0 2px 0 #555, 0 3px 8px rgba(0,0,0,0.2)" }}>Bebek</span>
       </div>
     </Link>
   );
 }
 
+function AgeDropdown() {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClick(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    }
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, []);
+
+  return (
+    <div ref={ref} className="relative">
+      <button
+        onClick={() => setOpen((o) => !o)}
+        onMouseEnter={() => setOpen(true)}
+        className={cn(
+          "flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-sm font-semibold transition-all",
+          open
+            ? "bg-primary/10 text-primary"
+            : "text-foreground/70 hover:text-foreground hover:bg-muted"
+        )}
+        aria-expanded={open}
+        aria-haspopup="true"
+      >
+        <Baby className="w-4 h-4" />
+        YAŞ GRUPLARI
+        <ChevronDown className={cn("w-3.5 h-3.5 transition-transform duration-200", open && "rotate-180")} />
+      </button>
+
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, y: 6, scale: 0.97 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 4, scale: 0.97 }}
+            transition={{ duration: 0.15, ease: [0.16, 1, 0.3, 1] }}
+            onMouseLeave={() => setOpen(false)}
+            className="absolute top-full left-0 mt-2 w-64 rounded-2xl border border-border bg-card shadow-lg shadow-black/8 overflow-hidden z-50"
+          >
+            <div className="p-1.5">
+              {AGE_GROUPS.map((group) => (
+                <Link
+                  key={group.href}
+                  href={group.href}
+                  onClick={() => setOpen(false)}
+                  className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-muted transition-colors group"
+                >
+                  <span className="text-xl leading-none">{group.emoji}</span>
+                  <div className="flex flex-col min-w-0">
+                    <span className={cn("text-sm font-semibold leading-tight", group.color)}>{group.label}</span>
+                    <span className="text-xs text-muted-foreground mt-0.5 leading-tight">{group.desc}</span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+            <div className="border-t border-border px-3 py-2.5 bg-muted/30">
+              <Link
+                href="/tarifler"
+                onClick={() => setOpen(false)}
+                className="flex items-center gap-2 text-xs font-medium text-muted-foreground hover:text-primary transition-colors"
+              >
+                Tüm tariflere göz at →
+              </Link>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [mobileAgeOpen, setMobileAgeOpen] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
     const supabase = createClient();
-
     async function loadUser() {
       const { data } = await supabase.auth.getUser();
       if (data.user) {
@@ -76,9 +139,7 @@ export function Header() {
         setIsAdmin(profile?.role === "admin");
       }
     }
-
     loadUser();
-
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_e, session) => {
       if (!session?.user) setIsAdmin(false);
     });
@@ -87,6 +148,7 @@ export function Header() {
 
   return (
     <>
+      {/* Marquee banner */}
       <div className="w-full overflow-hidden py-2" style={{ background: "linear-gradient(90deg, oklch(0.22 0.065 155) 0%, oklch(0.30 0.090 153) 45%, oklch(0.37 0.110 152) 100%)", color: "oklch(0.937 0.016 88)" }}>
         <div className="flex animate-marquee whitespace-nowrap">
           {[0, 1].map((i) => (
@@ -103,7 +165,6 @@ export function Header() {
                 { icon: "✨", text: "Uzman onaylı içerikler" },
                 { icon: "🍼", text: "Bebeğine özel öneriler" },
                 { icon: "🚨", text: "Çözüm Merkezi — Gaz, kabızlık, seçici yeme" },
-                { icon: "🧠", text: "Beslenme rehberleri & uzman içerikler" },
                 { icon: "📸", text: "Instagram'da takip et — @tok_bebek" },
               ].map(({ icon, text }) => (
                 <span key={text} className="inline-flex items-center gap-2 mx-6 text-xs font-medium opacity-85 tracking-wide">
@@ -116,50 +177,60 @@ export function Header() {
           ))}
         </div>
       </div>
+
+      {/* Main header */}
       <header className="sticky top-0 z-50 w-full border-b border-border bg-card/95 backdrop-blur-md shadow-soft">
         <div className="w-full px-4 xl:px-8">
-          <div className="relative flex h-[62px] items-center">
-            {/* Sol — Logo */}
+          <div className="flex h-[66px] items-center gap-4">
+
+            {/* Logo */}
             <BrandLogo />
 
-            {/* Orta — Desktop nav */}
-            <nav className="hidden lg:flex items-center gap-0.5 mx-auto">
-              {NAV_LINKS.map((link) =>
-                link.href === "/akademi" ? (
-                  <Link key={link.href} href={link.href}
-                    className="ml-1 flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-sm font-bold bg-primary/10 text-primary hover:bg-primary/20 border border-primary/20 hover:border-primary/40 transition-all whitespace-nowrap">
-                    <BookOpen className="w-3.5 h-3.5" />
+            {/* Divider */}
+            <div className="hidden lg:block w-px h-7 bg-border mx-1" />
+
+            {/* Desktop nav */}
+            <nav className="hidden lg:flex items-center gap-1 flex-1">
+              <AgeDropdown />
+
+              <div className="w-px h-5 bg-border mx-1" />
+
+              {MAIN_LINKS.map((link) => {
+                const Icon = link.icon;
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className={cn(
+                      "flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-sm font-semibold transition-all whitespace-nowrap",
+                      link.variant === "primary"
+                        ? "text-primary hover:bg-primary/10"
+                        : link.variant === "amber"
+                        ? "text-amber-700 dark:text-amber-400 hover:bg-amber-500/10"
+                        : "text-foreground/70 hover:text-foreground hover:bg-muted"
+                    )}
+                  >
+                    <Icon className="w-4 h-4" />
                     {link.label}
                   </Link>
-                ) : link.href === "/menu" ? (
-                  <Link key={link.href} href={link.href}
-                    className="ml-1 flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-sm font-bold bg-amber-500/10 text-amber-700 dark:text-amber-400 hover:bg-amber-500/20 border border-amber-500/20 hover:border-amber-500/40 transition-all whitespace-nowrap">
-                    <CalendarDays className="w-3.5 h-3.5" />
-                    {link.label}
-                  </Link>
-                ) : (
-                  <Link key={link.href} href={link.href}
-                    className="px-3 py-1.5 rounded-full text-sm font-medium text-foreground/75 hover:text-foreground hover:bg-primary/8 transition-colors whitespace-nowrap">
-                    {link.label}
-                  </Link>
-                )
-              )}
+                );
+              })}
             </nav>
 
-            {/* Sağ — Arama + Bebek + Kullanıcı */}
+            {/* Right side */}
             <div className="flex items-center gap-2 ml-auto">
-              {/* Search bar — desktop */}
+              {/* Search — desktop */}
               <Link
                 href="/ara"
-                className="hidden lg:flex items-center gap-2 rounded-xl border border-border/50 bg-muted/30 hover:bg-muted/50 hover:border-primary/30 active:bg-muted/20 active:scale-95 active:border-primary/20 transition-all px-3.5 py-2 text-sm text-foreground/40 hover:text-foreground/60 w-44"
+                className="hidden lg:flex items-center gap-2 rounded-xl border border-border/60 bg-muted/40 hover:bg-muted hover:border-primary/30 transition-all px-3.5 py-2 text-sm text-foreground/40 hover:text-foreground/70 w-44"
               >
-                <Search className="w-4 h-4 shrink-0 text-primary/70" />
+                <Search className="w-4 h-4 shrink-0 text-primary/60" />
                 <span>Tarif ara…</span>
               </Link>
 
               <BabyChip />
 
-              {/* User menu — desktop (sadece admin için) */}
+              {/* User menu — desktop */}
               <div className="hidden lg:block">
                 <UserMenu isAdmin={isAdmin} />
               </div>
@@ -182,7 +253,7 @@ export function Header() {
                 <Search className="w-[17px] h-[17px]" />
               </Link>
 
-              {/* Hamburger — below lg */}
+              {/* Hamburger */}
               <button
                 onClick={() => setMenuOpen((o) => !o)}
                 aria-label={menuOpen ? "Menüyü kapat" : "Menüyü aç"}
@@ -208,7 +279,7 @@ export function Header() {
           </div>
         </div>
 
-        {/* Mobile dropdown menu */}
+        {/* Mobile menu */}
         <AnimatePresence>
           {menuOpen && (
             <motion.div
@@ -219,36 +290,82 @@ export function Header() {
               transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
               className="lg:hidden overflow-hidden border-t border-border bg-card/98 backdrop-blur-xl"
             >
-              <div className="container mx-auto px-4 max-w-7xl py-3 space-y-0.5">
-                {NAV_LINKS.map((link, i) => (
-                  <motion.div
-                    key={link.href}
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.04, duration: 0.18 }}
-                  >
-                    <Link
-                      href={link.href}
-                      onClick={() => setMenuOpen(false)}
-                      className={cn(
-                        "flex items-center justify-between px-4 py-3.5 rounded-xl text-sm font-medium transition-colors",
-                        link.href === "/akademi"
-                          ? "bg-primary/8 text-primary font-bold hover:bg-primary/15 border border-primary/15"
-                          : link.href === "/menu"
-                          ? "bg-amber-500/8 text-amber-700 dark:text-amber-400 font-bold hover:bg-amber-500/15 border border-amber-500/15"
-                          : "text-foreground hover:bg-muted"
-                      )}
-                    >
-                      <span className="flex items-center gap-2">
-                        {link.href === "/akademi" && <BookOpen className="w-4 h-4" />}
-                        {link.href === "/menu" && <CalendarDays className="w-4 h-4" />}
-                        {link.label}
-                      </span>
-                      <ChevronRight className="w-4 h-4 text-muted-foreground" />
-                    </Link>
-                  </motion.div>
-                ))}
+              <div className="px-4 py-3 space-y-1">
 
+                {/* Yaş grupları — accordion */}
+                <div>
+                  <button
+                    onClick={() => setMobileAgeOpen((o) => !o)}
+                    className="w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-semibold text-foreground hover:bg-muted transition-colors"
+                  >
+                    <span className="flex items-center gap-2">
+                      <Baby className="w-4 h-4 text-primary" />
+                      Yaş Grupları
+                    </span>
+                    <ChevronDown className={cn("w-4 h-4 text-muted-foreground transition-transform duration-200", mobileAgeOpen && "rotate-180")} />
+                  </button>
+
+                  <AnimatePresence>
+                    {mobileAgeOpen && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.18 }}
+                        className="overflow-hidden"
+                      >
+                        <div className="pl-4 pr-2 pb-1 space-y-0.5">
+                          {AGE_GROUPS.map((group) => (
+                            <Link
+                              key={group.href}
+                              href={group.href}
+                              onClick={() => { setMenuOpen(false); setMobileAgeOpen(false); }}
+                              className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-muted transition-colors"
+                            >
+                              <span className="text-lg leading-none">{group.emoji}</span>
+                              <div>
+                                <div className={cn("text-sm font-semibold leading-tight", group.color)}>{group.label}</div>
+                                <div className="text-xs text-muted-foreground mt-0.5">{group.desc}</div>
+                              </div>
+                            </Link>
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+
+                {/* Divider */}
+                <div className="h-px bg-border mx-2 my-1" />
+
+                {/* Diğer linkler */}
+                {MAIN_LINKS.map((link, i) => {
+                  const Icon = link.icon;
+                  return (
+                    <motion.div
+                      key={link.href}
+                      initial={{ opacity: 0, x: -8 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: i * 0.04 + 0.05, duration: 0.16 }}
+                    >
+                      <Link
+                        href={link.href}
+                        onClick={() => setMenuOpen(false)}
+                        className={cn(
+                          "flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-colors",
+                          link.variant === "primary"
+                            ? "text-primary hover:bg-primary/8"
+                            : link.variant === "amber"
+                            ? "text-amber-700 dark:text-amber-400 hover:bg-amber-500/8"
+                            : "text-foreground hover:bg-muted"
+                        )}
+                      >
+                        <Icon className="w-4 h-4" />
+                        {link.label}
+                      </Link>
+                    </motion.div>
+                  );
+                })}
               </div>
             </motion.div>
           )}

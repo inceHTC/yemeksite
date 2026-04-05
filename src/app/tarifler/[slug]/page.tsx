@@ -13,6 +13,7 @@ import { NutritionVisual } from "@/components/recipe/nutrition-visual";
 import { getRecipeBySlug, getRelatedRecipes, getAllSlugs, incrementViewCount } from "@/lib/supabase/recipes";
 import { getReviews } from "@/app/tarifler/actions";
 import { Breadcrumb } from "@/components/shared/breadcrumb";
+import { BackButton } from "@/components/shared/back-button";
 import { ReviewsList } from "@/components/recipe/reviews-list";
 import { ReviewFormToggle } from "@/components/recipe/review-form-toggle";
 import { RecipeVideo } from "@/components/recipe/recipe-video";
@@ -91,7 +92,9 @@ export default async function RecipeDetailPage({ params }: PageProps) {
   const related = await getRelatedRecipes(
     recipe.id,
     recipe.age_min_months,
-    recipe.age_max_months
+    recipe.age_max_months,
+    recipe.meal_type,
+    9
   );
 
   const nutrition = recipe.nutritional_info as Record<string, number> | null;
@@ -118,9 +121,9 @@ export default async function RecipeDetailPage({ params }: PageProps) {
       <main className="flex-1 pb-24 sm:pb-0">
         <article className="container mx-auto px-4 max-w-xl">
 
-          {/* Breadcrumb + Share */}
+          {/* Geri + Share */}
           <div className="flex items-center justify-between py-4">
-            <Breadcrumb items={[{ label: "Tarifler", href: "/tarifler" }, { label: recipe.title }]} />
+            <BackButton fallbackHref="/tarifler" />
             <ShareButton title={recipe.title} url={recipeUrl} />
           </div>
 
@@ -252,15 +255,10 @@ export default async function RecipeDetailPage({ params }: PageProps) {
           {related.length > 0 && (
             <section className="mb-6">
               <h2 className="font-heading text-lg font-bold mb-4">Benzer Tarifler</h2>
-              {/* Mobilde yatay kaydırma, masaüstünde 2 kolon grid */}
-              <div className="-mx-4 sm:mx-0">
-                <div className="flex gap-3 overflow-x-auto no-scrollbar px-4 sm:px-0 pb-2 snap-x snap-mandatory sm:grid sm:grid-cols-2 sm:gap-4 sm:overflow-visible sm:pb-0">
-                  {related.map((r) => (
-                    <div key={r.id} className="shrink-0 w-48 sm:w-auto snap-start">
-                      <RecipeCard recipe={r} />
-                    </div>
-                  ))}
-                </div>
+              <div className="grid grid-cols-3 gap-2 sm:grid-cols-2 sm:gap-4">
+                {related.map((r) => (
+                  <RecipeCard key={r.id} recipe={r} compact />
+                ))}
               </div>
             </section>
           )}

@@ -12,7 +12,7 @@ const TEAM_VALUES = [
   {
     emoji: "🔬",
     title: "Bilimsel Temel",
-    desc: "Tüm tariflerimiz WHO, AAP ve Harvard Pediatri araştırmalarına dayanır. İçeriklerimiz pediatri uzmanları tarafından incelenmektedir.",
+    desc: "Tüm tariflerimizin WHO Pediatri araştırmalarına göre uyumlu olmasına dikkat ediyoruz.",
   },
   {
     emoji: "🥕",
@@ -32,7 +32,7 @@ const TEAM_VALUES = [
 ];
 
 const STATS = [
-  { value: "50+", label: "Tarif" },
+  { value: "100+", label: "Tarif" },
   { value: "4-36", label: "Aylık Bebek" },
   { value: "WHO/AAP", label: "Bilimsel Kaynak" },
   { value: "0", label: "Şeker/Katkı" },
@@ -68,13 +68,10 @@ export default function HakkimizdaPage() {
           <section className="space-y-4">
             <h2 className="font-heading text-2xl font-bold">Hikayemiz</h2>
             <div className="prose prose-sm max-w-none text-muted-foreground space-y-3">
+            
               <p>
-                Tok Bebek, bir anne ve babanın "bebeğime ne yedireyim?" sorusuna bilimsel bir cevap arayışından doğdu.
-                Piyasadaki kaynakların büyük çoğunluğu ya çok genel ya da bilimsel temelden yoksundu.
-              </p>
-              <p>
-                WHO (Dünya Sağlık Örgütü) ve AAP (Amerikan Pediatri Akademisi) rehberlerini inceledik,
-                yüzlerce araştırma okuduk ve sonunda Türk ailelerin mutfak kültürüne uygun,
+                 <strong>Tok Bebek</strong> olarak, WHO (Dünya Sağlık Örgütü) ve AAP (Amerikan Pediatri Akademisi) rehberlerini inceledik,
+                onlarca araştırma okuduk ve sonunda Türk ailelerin mutfak kültürüne uygun,
                 bilimsel temelli tarifler hazırladık.
               </p>
               <p>

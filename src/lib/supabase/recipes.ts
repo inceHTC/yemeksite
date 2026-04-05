@@ -84,10 +84,12 @@ export async function getRelatedRecipes(
   recipeId: string,
   ageMin: number,
   ageMax: number,
-  limit = 4
+  mealType?: string,
+  limit = 6
 ): Promise<RecipeRow[]> {
   const supabase = await createClient();
 
+  // Geniş havuz çek — aynı yaş aralığında yayınlanmış tarifler
   const { data } = await supabase
     .from("recipes")
     .select("*")
@@ -95,9 +97,21 @@ export async function getRelatedRecipes(
     .neq("id", recipeId)
     .gte("age_max_months", ageMin)
     .lte("age_min_months", ageMax)
-    .limit(limit);
+    .limit(40);
 
-  return data ?? [];
+  if (!data || data.length === 0) return [];
+
+  // Aynı öğün türünü öne al, kalanları arkaya
+  const sameType = mealType ? data.filter((r) => r.meal_type === mealType) : [];
+  const others = data.filter((r) => r.meal_type !== mealType);
+  const pool = [...sameType, ...others];
+
+  // Tarif ID'sinden deterministik bir offset türet —
+  // her tarif kendi sayfasında farklı bir kesit gösterir
+  const seed = recipeId.split("").reduce((acc, c) => acc + c.charCodeAt(0), 0);
+  const offset = seed % Math.max(pool.length - limit + 1, 1);
+
+  return pool.slice(offset, offset + limit);
 }
 
 export async function getAllSlugs(): Promise<{ slug: string }[]> {

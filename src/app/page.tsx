@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Suspense } from "react";
 import { ArrowRight, Leaf, ShieldCheck, FlaskConical, BookOpen, Clock } from "lucide-react";
 import { Header } from "@/components/layout/header";
+import { HeroSection } from "@/components/layout/hero-section";
 import { MobileNav } from "@/components/layout/mobile-nav";
 import { RecipeCard } from "@/components/recipe/recipe-card";
 import { getRecipes, type RecipeRow } from "@/lib/supabase/recipes";
@@ -28,12 +29,12 @@ export const metadata: Metadata = {
 };
 
 const SPECIAL_CATEGORIES = [
-  { href: "/tarifler?health=gas_friendly", label: "Gaz Dostu", desc: "Kolik ve gaz sorunlarında", emoji: "💨", color: "bg-amber-50 dark:bg-amber-950/30 border-amber-200/60 dark:border-amber-800/40 hover:border-amber-300 dark:hover:border-amber-700" },
-  { href: "/tarifler?health=constipation", label: "Kabızlık Önleyici", desc: "Lifli ve yumuşatıcı", emoji: "🌿", color: "bg-green-50 dark:bg-green-950/30 border-green-200/60 dark:border-green-800/40 hover:border-green-300 dark:hover:border-green-700" },
-  { href: "/tarifler?freezable=true", label: "Dondurun & Saklayın", desc: "Toplu pişirme tarifleri", emoji: "❄️", color: "bg-sky-50 dark:bg-sky-950/30 border-sky-200/60 dark:border-sky-800/40 hover:border-sky-300 dark:hover:border-sky-700" },
-  { href: "/tarifler?meal=breakfast", label: "Bebek Kahvaltıları", desc: "Güne güzel başlayın", emoji: "☀️", color: "bg-orange-50 dark:bg-orange-950/30 border-orange-200/60 dark:border-orange-800/40 hover:border-orange-300 dark:hover:border-orange-700" },
-  { href: "/tarifler?diet=gluten_free", label: "Glutensiz Tarifler", desc: "Buğday ve gluten yok", emoji: "🌾", color: "bg-yellow-50 dark:bg-yellow-950/30 border-yellow-200/60 dark:border-yellow-800/40 hover:border-yellow-300 dark:hover:border-yellow-700" },
-  { href: "/tarifler?diet=dairy_free", label: "Sütsüz Tarifler", desc: "Süt alerjisi olanlar için", emoji: "🥛", color: "bg-violet-50 dark:bg-violet-950/30 border-violet-200/60 dark:border-violet-800/40 hover:border-violet-300 dark:hover:border-violet-700" },
+  { href: "/tarifler?health=gas_friendly", label: "Gaz Dostu",         desc: "Kolik ve gaz sorunlarında",   emoji: "💨" },
+  { href: "/tarifler?health=constipation", label: "Kabızlık Önleyici", desc: "Lifli ve yumuşatıcı",         emoji: "🌿" },
+  { href: "/tarifler?freezable=true",      label: "Dondurun & Saklayın", desc: "Toplu pişirme tarifleri",   emoji: "❄️" },
+  { href: "/tarifler?meal=breakfast",      label: "Bebek Kahvaltıları", desc: "Güne güzel başlayın",         emoji: "☀️" },
+  { href: "/tarifler?diet=gluten_free",    label: "Glutensiz Tarifler", desc: "Buğday ve gluten yok",        emoji: "🌾" },
+  { href: "/tarifler?diet=dairy_free",     label: "Sütsüz Tarifler",   desc: "Süt alerjisi olanlar için",   emoji: "🥛" },
 ];
 
 const TRUST_ITEMS = [
@@ -161,52 +162,7 @@ export default function HomePage() {
       <main className="flex-1 pb-20 sm:pb-0">
 
         {/* ═══ HERO ═══ */}
-        <section className="relative w-full overflow-hidden" style={{ aspectRatio: "16/7", minHeight: 320, maxHeight: 600 }}>
-          {/* Placeholder arka plan — hero.png gelene kadar */}
-          <div className="absolute inset-0 bg-gradient-to-br from-honey/50 via-secondary/50 to-primary/20 flex items-center justify-center">
-            <span className="text-8xl opacity-25">🥣</span>
-          </div>
-
-          {/* Görsel */}
-          <Image
-            src="/hero.png"
-            alt="Tok Bebek — Sağlıklı bebek yemekleri"
-            fill
-            priority
-            className="object-cover"
-            sizes="100vw"
-          />
-
-          {/* Alt karartma — sadece butonlar için */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
-
-          {/* Butonlar — alt orta */}
-          <div className="absolute inset-x-0 bottom-0 flex justify-center pb-6 sm:pb-10 px-4">
-            <div className="flex flex-wrap justify-center gap-2.5">
-              <Link
-                href="/tarifler"
-                className="inline-flex items-center gap-1.5 rounded-full bg-white text-foreground px-5 py-2 sm:px-6 sm:py-2.5 text-xs sm:text-sm font-semibold hover:bg-white/90 transition-all active:scale-95 shadow-lg"
-              >
-                Tarifleri Keşfet
-                <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
-              <Link
-                href="/basla"
-                className="inline-flex items-center gap-1.5 rounded-full bg-white/15 backdrop-blur-sm border border-white/30 text-white px-5 py-2 sm:px-6 sm:py-2.5 text-xs sm:text-sm font-semibold hover:bg-white/25 transition-all active:scale-95"
-              >
-                Bebeğime Özel
-              </Link>
-            </div>
-          </div>
-        </section>
-
-        {/* ═══ BEBEĞİNİ TANIT BANDI ═══ */}
-        <div className="bg-foreground/90 py-3 px-4 text-center">
-          <span className="text-xs opacity-75 text-background" style={{ color: "oklch(0.937 0.016 88)" }}>🌱 Türkiye&apos;nin bebek beslenmesi platformu — </span>
-          <Link href="/basla" className="text-xs font-semibold hover:opacity-100 opacity-90 transition-opacity underline-offset-2 hover:underline" style={{ color: "oklch(0.937 0.016 88)" }}>
-            Bebeğini tanıt, kişisel tarifler al →
-          </Link>
-        </div>
+        <HeroSection />
 
         <div className="container mx-auto px-4 max-w-6xl space-y-16 py-10">
 
@@ -226,23 +182,25 @@ export default function HomePage() {
 
           {/* ═══ ÖZEL KOLEKSİYONLAR ═══ */}
           <section className="section-warm px-6 py-8 sm:px-8">
-            <SectionHeader
-              title="Özel Koleksiyonlar"
-              subtitle="İhtiyaca göre düzenlenmiş"
-            />
+            <div className="flex items-end justify-between gap-4">
+              <div>
+                <h2 className="font-heading text-2xl font-bold leading-tight text-white">Özel Koleksiyonlar</h2>
+                <p className="text-sm text-white/50 mt-0.5">İhtiyaca göre düzenlenmiş</p>
+              </div>
+            </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mt-6">
               {SPECIAL_CATEGORIES.map((cat) => (
                 <Link
                   key={cat.href}
                   href={cat.href}
-                  className={`group flex items-start gap-4 rounded-2xl border p-4 transition-all duration-200 shadow-soft hover:shadow-card hover:-translate-y-0.5 ${cat.color}`}
+                  className="group flex items-start gap-4 rounded-2xl border border-white/10 bg-black/70 p-4 transition-all duration-200 hover:-translate-y-0.5 hover:bg-black/90 hover:border-white/25"
                 >
                   <span className="text-2xl leading-none mt-0.5 shrink-0">{cat.emoji}</span>
                   <div className="min-w-0">
-                    <p className="font-semibold text-sm text-foreground leading-snug">{cat.label}</p>
-                    <p className="text-xs text-muted-foreground mt-0.5">{cat.desc}</p>
+                    <p className="font-semibold text-sm text-white leading-snug">{cat.label}</p>
+                    <p className="text-xs text-white/50 mt-0.5">{cat.desc}</p>
                   </div>
-                  <ArrowRight className="w-4 h-4 text-muted-foreground shrink-0 ml-auto self-center opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <ArrowRight className="w-4 h-4 text-white/30 shrink-0 ml-auto self-center opacity-0 group-hover:opacity-100 group-hover:text-primary transition-all" />
                 </Link>
               ))}
             </div>

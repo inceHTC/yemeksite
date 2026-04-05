@@ -261,7 +261,7 @@
       0 1px 6px oklch(0.37 0.110 152 / 12%);
   }
   .section-warm {
-    background-color: oklch(0.920 0.026 152);
+    background-color: #007a3f;
     border-radius: var(--radius-3xl);
   }
   .touch-target {

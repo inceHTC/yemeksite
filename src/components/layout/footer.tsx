@@ -64,17 +64,17 @@ export function Footer() {
 
               <div className="flex items-baseline leading-none">
                 <span
-                  className="font-heading font-extrabold text-4xl tracking-tight"
+                  className="font-heading font-extrabold text-[1.7rem] tracking-tight"
                   style={{
                     color: "#007a3f",
-                    textShadow: "0 1px 0 #006535, 0 2px 0 #00502a, 0 3px 0 #003d20, 0 4px 0 #002b16, 0 5px 0 #001a0d, 0 5px 12px rgba(0,0,0,0.35)",
+                    textShadow: "0 1px 0 #006535, 0 2px 0 #00502a, 0 3px 0 #003d20, 0 4px 8px rgba(0,0,0,0.25)",
                   }}
                 >Tok</span>
                 <span
-                  className="font-heading font-extrabold text-4xl tracking-tight"
+                  className="font-heading font-extrabold text-[1.7rem] tracking-tight"
                   style={{
                     color: "#1c1c1c",
-                    textShadow: "0 1px 0 #666, 0 2px 0 #555, 0 3px 0 #444, 0 4px 0 #333, 0 4px 10px rgba(0,0,0,0.3)",
+                    textShadow: "0 1px 0 #666, 0 2px 0 #555, 0 3px 8px rgba(0,0,0,0.2)",
                   }}
                 >Bebek</span>
               </div>
