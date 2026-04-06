@@ -37,7 +37,7 @@ export function HeroSection() {
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-black/10" />
 
       {/* ── Yazılar — üst ── */}
-      <div className="absolute inset-x-0 top-0 flex flex-col items-start sm:items-center pt-8 sm:pt-10 lg:pt-12 pl-[45%] pr-3 sm:pl-4 sm:pr-4 text-left sm:text-center">
+      <div className="absolute inset-x-0 top-0 flex flex-col items-center pt-4 sm:pt-10 lg:pt-12 pl-12 pr-4 sm:px-4 text-center">
     <br />
         <h1 className="font-heading font-extrabold leading-tight drop-shadow-md mb-3">
           <span className="block text-white text-2xl sm:text-4xl lg:text-5xl">Bebekler Tok,</span>
