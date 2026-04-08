@@ -18,10 +18,10 @@ const AGE_GROUPS = [
 ];
 
 const MAIN_LINKS = [
-  { href: "/menu",    label: "HAFTALIK MENÜ",   icon: CalendarDays,  variant: "amber" as const },
-  { href: "/destek",  label: "ÇÖZÜM MERKEZİ",   icon: LifeBuoy,      variant: "default" as const },
+  { href: "/menu",    label: "Haftalık Menü",   icon: CalendarDays,  variant: "amber" as const },
+  { href: "/destek",  label: "Çözüm Merkezi",   icon: LifeBuoy,      variant: "default" as const },
   { href: "/akademi", label: "DERGİ - Makaleler", icon: BookOpen,     variant: "primary" as const },
-  { href: "/profil",  label: "BEBEK PROFİLİ",   icon: UserCircle,    variant: "default" as const },
+  { href: "/profil",  label: "Bebek Profilim",   icon: UserCircle,    variant: "default" as const },
 ];
 
 function BrandLogo() {
@@ -74,7 +74,7 @@ function AgeDropdown() {
         aria-haspopup="true"
       >
         <Baby className="w-4 h-4" />
-        YAŞ GRUPLARI
+        Yaş Grupları
         <ChevronDown className={cn("w-3.5 h-3.5 transition-transform duration-200", open && "rotate-180")} />
       </button>
 
