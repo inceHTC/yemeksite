@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { createClient } from "@/lib/supabase/server";
+import { createClient, createBuildClient } from "@/lib/supabase/server";
 import type { Article } from "@/types/supabase";
 import { MobileNav } from "@/components/layout/mobile-nav";
 import { ReadingProgress } from "@/components/shared/reading-progress";
@@ -35,6 +35,18 @@ const CATEGORY_ACCENT: Record<string, string> = {
   health: "text-rose-700 dark:text-rose-300 bg-rose-100 dark:bg-rose-900/50",
   safety: "text-orange-700 dark:text-orange-300 bg-orange-100 dark:bg-orange-900/50",
 };
+
+export async function generateStaticParams() {
+  const supabase = createBuildClient();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { data } = await (supabase as any)
+    .from("articles")
+    .select("slug")
+    .eq("is_published", true);
+  return (data ?? []).map(({ slug }: { slug: string }) => ({ slug }));
+}
+
+export const dynamicParams = true;
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -156,7 +168,7 @@ export default async function ArticlePage({ params }: PageProps) {
       logo: { "@type": "ImageObject", url: `${baseUrl}/icon-192.png` },
     },
     datePublished: article.created_at,
-    dateModified: article.created_at,
+    dateModified: article.updated_at,
     mainEntityOfPage: { "@type": "WebPage", "@id": `${baseUrl}/akademi/${article.slug}` },
     ...(article.image_url ? { image: { "@type": "ImageObject", url: article.image_url } } : {}),
     articleSection: CATEGORY_LABEL[article.category] ?? article.category,
@@ -231,7 +243,6 @@ export default async function ArticlePage({ params }: PageProps) {
                   fill
                   className="object-cover"
                   priority
-                  unoptimized
                 />
               </div>
             </div>
@@ -306,7 +317,7 @@ export default async function ArticlePage({ params }: PageProps) {
               <div className="relative overflow-hidden rounded-2xl border border-border bg-card hover:border-primary/40 hover:shadow-md transition-all p-6 flex items-center gap-4">
                 {nextArticle.image_url && (
                   <div className="relative w-16 h-16 rounded-xl overflow-hidden shrink-0">
-                    <Image src={nextArticle.image_url} alt={nextArticle.title} fill className="object-cover" unoptimized />
+                    <Image src={nextArticle.image_url} alt={nextArticle.title} fill className="object-cover" />
                   </div>
                 )}
                 <div className="flex-1 min-w-0">
@@ -346,7 +357,6 @@ export default async function ArticlePage({ params }: PageProps) {
                             alt={rel.title}
                             fill
                             className="object-cover group-hover:scale-105 transition-transform duration-500"
-                            unoptimized
                           />
                         ) : (
                           <div className="absolute inset-0 flex items-center justify-center">

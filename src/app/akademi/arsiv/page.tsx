@@ -9,8 +9,10 @@ import { Breadcrumb } from "@/components/shared/breadcrumb";
 import { Clock, BookOpen, ChevronLeft, Archive } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Arşiv — Tok Bebek Dergisi",
-  description: "Tok Bebek Dergisi tüm makaleler arşivi. Yıllara ve aylara göre makale listesi.",
+  title: "Makale Arşivi — Tok Bebek Dergisi",
+  description: "Tok Bebek Dergisi tüm bebek beslenmesi ve gelişim makaleleri. Beslenme, sağlık, güvenlik ve gelişim kategorilerinde yüzlerce makale.",
+  keywords: ["bebek beslenmesi makaleler", "bebek gelişimi rehber", "anne bebek dergi arşivi"],
+  alternates: { canonical: "https://tokbebek.com.tr/akademi/arsiv" },
 };
 
 const CATEGORY_LABEL: Record<string, string> = {
@@ -212,7 +214,6 @@ function ArchiveArticleRow({ article }: { article: Article }) {
               alt={article.title}
               fill
               className="object-cover group-hover:scale-105 transition-transform duration-300"
-              unoptimized
             />
           ) : (
             <div className="absolute inset-0 flex items-center justify-center">

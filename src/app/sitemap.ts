@@ -11,10 +11,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const [{ data: recipes }, { data: articles }] = await Promise.all([
     supabaseAny.from("recipes").select("slug, updated_at").eq("is_published", true),
-    supabaseAny.from("articles").select("slug, created_at").eq("is_published", true),
+    supabaseAny.from("articles").select("slug, updated_at").eq("is_published", true),
   ]) as [
     { data: { slug: string; updated_at: string }[] | null },
-    { data: { slug: string; created_at: string }[] | null },
+    { data: { slug: string; updated_at: string }[] | null },
   ];
 
   const recipeUrls: MetadataRoute.Sitemap = (recipes ?? []).map((recipe) => ({
@@ -26,7 +26,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const articleUrls: MetadataRoute.Sitemap = (articles ?? []).map((article) => ({
     url: `${BASE_URL}/akademi/${article.slug}`,
-    lastModified: new Date(article.created_at),
+    lastModified: new Date(article.updated_at),
     changeFrequency: "monthly",
     priority: 0.85,
   }));

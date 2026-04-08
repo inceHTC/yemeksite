@@ -74,7 +74,7 @@ export function MagazineCover({ featured, teasers, totalCount }: Props) {
           {/* Issue stamp */}
           <div className="text-right flex flex-col items-end gap-1">
             <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl px-4 py-3 text-right">
-              <p className="text-white/60 text-[9px] font-semibold uppercase tracking-widest">Sayı</p>
+             
               <p className="font-heading text-white text-3xl font-extrabold leading-none">{totalCount}</p>
               <p className="text-white/60 text-[9px] font-semibold uppercase tracking-widest mt-0.5">Makale</p>
             </div>

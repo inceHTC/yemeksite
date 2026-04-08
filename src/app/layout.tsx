@@ -53,6 +53,9 @@ export const metadata: Metadata = {
     "12 aylık bebek yemeği", "bebek beslenmesi rehberi", "katı gıdaya geçiş",
     "bebek kahvaltısı", "bebek çorbası", "bebek sebze püresi",
   ],
+  verification: {
+    google: "8jMAz9kpt8EMVOyjiLr19y6KlupG_WsnSJQjKOm91r0",
+  },
   authors: [{ name: "Tok Bebek" }],
   creator: "Tok Bebek",
   publisher: "Tok Bebek",

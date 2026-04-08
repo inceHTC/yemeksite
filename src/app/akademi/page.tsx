@@ -11,11 +11,24 @@ import { CategoryFilter } from "./category-filter";
 import { MagazineCover } from "./magazine-cover";
 
 export const metadata: Metadata = {
-  title: "Tok Bebek Dergisi — Anne & Bebek",
+  title: "Bebek Beslenmesi Rehberi — Anne & Bebek Akademisi",
   description:
-    "WHO ve AAP'a dayalı bebek beslenmesi rehberleri. Tamamlayıcı beslenmeye başlangıç, alerjen giriş, porsiyon rehberi ve daha fazlası.",
-  keywords: ["bebek beslenmesi rehber", "tamamlayıcı besin", "bebek alerji", "bebek porsiyon", "bebek gelişim"],
+    "Bebeğinize ne zaman ne verilir? Tamamlayıcı beslenmeye başlangıç, alerjen giriş sırası, porsiyon rehberi, gelişim takibi. WHO ve AAP verilerine dayalı bilimsel makaleler.",
+  keywords: [
+    "bebek beslenmesi rehberi", "bebeğe ne zaman ne verilir", "tamamlayıcı besin",
+    "ek gıdaya geçiş ne zaman", "bebek alerji giriş sırası", "bebek porsiyon miktarı",
+    "bebek gelişimi makaleler", "bebek sağlığı rehberi", "anne bebek akademisi",
+  ],
   alternates: { canonical: "https://tokbebek.com.tr/akademi" },
+  openGraph: {
+    title: "Bebek Beslenmesi Rehberi — Anne & Bebek Akademisi",
+    description: "Bebeğinize ne zaman ne verilir? WHO ve AAP verilerine dayalı bilimsel makaleler.",
+    url: "https://tokbebek.com.tr/akademi",
+    type: "website",
+    locale: "tr_TR",
+    siteName: "Tok Bebek",
+    images: [{ url: "/og-default.png", width: 1200, height: 630, alt: "Tok Bebek Akademisi" }],
+  },
 };
 
 const CATEGORY_LABEL: Record<string, string> = {
@@ -49,10 +62,29 @@ interface PageProps {
   searchParams: Promise<{ kategori?: string }>;
 }
 
+const BASE_URL = "https://tokbebek.com.tr";
+
 export default async function AkademiPage({ searchParams }: PageProps) {
   const { kategori } = await searchParams;
   const articles = await getArticles(kategori);
   const allArticles = kategori ? await getArticles() : articles;
+
+  const collectionSchema = !kategori ? {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Tok Bebek Dergisi — Anne & Bebek Akademisi",
+    description: "Bebeğinize ne zaman ne verilir? WHO ve AAP verilerine dayalı bilimsel makaleler.",
+    url: `${BASE_URL}/akademi`,
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: allArticles.map((article, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        url: `${BASE_URL}/akademi/${article.slug}`,
+        name: article.title,
+      })),
+    },
+  } : null;
 
   const featured = allArticles[0] ?? null;
   const teasers = allArticles.slice(1, 6);
@@ -60,6 +92,12 @@ export default async function AkademiPage({ searchParams }: PageProps) {
 
   return (
     <>
+      {collectionSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}
+        />
+      )}
       <Header />
       <main className="flex-1 pb-20 sm:pb-0">
 
@@ -192,7 +230,6 @@ function ArticleCard({ article, priority = false }: { article: Article; priority
               fill
               className="object-cover group-hover:scale-105 transition-transform duration-500"
               priority={priority}
-              unoptimized
             />
           ) : (
             <div className="absolute inset-0 flex items-center justify-center">

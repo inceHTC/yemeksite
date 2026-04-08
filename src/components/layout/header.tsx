@@ -20,7 +20,7 @@ const AGE_GROUPS = [
 const MAIN_LINKS = [
   { href: "/menu",    label: "HAFTALIK MENÜ", icon: CalendarDays, variant: "amber" as const },
    { href: "/destek",  label: "ÇÖZÜM MERKEZİ", icon: LifeBuoy,     variant: "default" as const },
-  { href: "/akademi", label: "DERGİ",          icon: BookOpen,     variant: "primary" as const },
+  { href: "/akademi", label: "DERGİ - Makaleler",          icon: BookOpen,     variant: "primary" as const },
  
 ];
 
