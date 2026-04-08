@@ -92,11 +92,13 @@ async function getNextArticle(createdAt: string): Promise<Article | null> {
 }
 
 const CATEGORY_KEYWORDS: Record<string, string[]> = {
-  nutrition: ["bebek beslenmesi", "bebek yemekleri", "tamamlayıcı beslenme", "bebek diyeti"],
-  development: ["bebek gelişimi", "bebek büyümesi", "motor gelişim", "bilişsel gelişim"],
-  health: ["bebek sağlığı", "bebek hastalıkları", "çocuk sağlığı", "pediatri"],
-  safety: ["bebek güvenliği", "bebek kazası önleme", "güvenli bebek"],
+  nutrition: ["bebek beslenmesi", "bebek yemekleri", "tamamlayıcı beslenme", "bebek diyeti", "bebek maması", "ek gıda"],
+  development: ["bebek gelişimi", "bebek büyümesi", "motor gelişim", "bilişsel gelişim", "çocuk gelişimi", "oyun gelişimi"],
+  health: ["bebek sağlığı", "bebek hastalıkları", "çocuk sağlığı", "pediatri", "anne bebek sağlığı", "ebeveyn rehberi"],
+  safety: ["bebek güvenliği", "bebek kazası önleme", "güvenli bebek", "bebek odası güvenliği", "çocuk güvenliği"],
 };
+
+const DEFAULT_OG_IMAGE = `${process.env.NEXT_PUBLIC_APP_URL ?? "https://tokbebek.com.tr"}/og-default.png`;
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
@@ -107,10 +109,20 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const url = `${baseUrl}/akademi/${slug}`;
   const categoryKeywords = CATEGORY_KEYWORDS[article.category] ?? [];
 
+  const titleWords = article.title
+    .toLowerCase()
+    .replace(/[ğ]/g, "g").replace(/[ü]/g, "u").replace(/[ş]/g, "s")
+    .replace(/[ı]/g, "i").replace(/[ö]/g, "o").replace(/[ç]/g, "c")
+    .split(/[\s,:.?!()'"]+/)
+    .filter((w) => w.length > 4);
+
+  const ogImageUrl = article.image_url ?? DEFAULT_OG_IMAGE;
+  const ogImage = { url: ogImageUrl, width: 1200, height: 630, alt: `${article.title} — Tok Bebek` };
+
   return {
     title: `${article.title} — Tok Bebek Dergisi`,
     description: article.excerpt,
-    keywords: [...categoryKeywords, "tok bebek", "anne bebek", "bebek rehberi"],
+    keywords: [...new Set([...categoryKeywords, ...titleWords, "tok bebek", "anne bebek", "bebek rehberi"])],
     alternates: { canonical: url },
     openGraph: {
       type: "article",
@@ -120,14 +132,16 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       locale: "tr_TR",
       siteName: "Tok Bebek",
       publishedTime: article.created_at,
+      modifiedTime: article.updated_at,
       authors: ["Tok Bebek Dergisi"],
-      ...(article.image_url ? { images: [{ url: article.image_url, width: 1200, height: 630, alt: article.title }] } : {}),
+      section: CATEGORY_LABEL[article.category] ?? article.category,
+      images: [ogImage],
     },
     twitter: {
       card: "summary_large_image",
       title: article.title,
       description: article.excerpt,
-      ...(article.image_url ? { images: [article.image_url] } : {}),
+      images: [ogImageUrl],
     },
   };
 }
@@ -155,6 +169,11 @@ export default async function ArticlePage({ params }: PageProps) {
   const categoryAccent = CATEGORY_ACCENT[article.category] ?? "text-muted-foreground bg-muted";
 
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? "https://tokbebek.com.tr";
+  const articleUrl = `${baseUrl}/akademi/${article.slug}`;
+  const imageUrl = article.image_url ?? `${baseUrl}/og-default.png`;
+
+  const wordCount = article.content.replace(/<[^>]+>/g, " ").split(/\s+/).filter(Boolean).length;
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -165,15 +184,28 @@ export default async function ArticlePage({ params }: PageProps) {
       "@type": "Organization",
       name: "Tok Bebek",
       url: baseUrl,
-      logo: { "@type": "ImageObject", url: `${baseUrl}/icon-192.png` },
+      logo: { "@type": "ImageObject", url: `${baseUrl}/icon-192.png`, width: 192, height: 192 },
     },
     datePublished: article.created_at,
     dateModified: article.updated_at,
-    mainEntityOfPage: { "@type": "WebPage", "@id": `${baseUrl}/akademi/${article.slug}` },
-    ...(article.image_url ? { image: { "@type": "ImageObject", url: article.image_url } } : {}),
+    mainEntityOfPage: { "@type": "WebPage", "@id": articleUrl },
+    image: { "@type": "ImageObject", url: imageUrl, width: 1200, height: 630 },
     articleSection: CATEGORY_LABEL[article.category] ?? article.category,
     timeRequired: `PT${article.reading_time_min}M`,
+    wordCount,
     inLanguage: "tr",
+    url: articleUrl,
+  };
+
+  const breadcrumbLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Ana Sayfa", item: baseUrl },
+      { "@type": "ListItem", position: 2, name: "Akademi", item: `${baseUrl}/akademi` },
+      { "@type": "ListItem", position: 3, name: CATEGORY_LABEL[article.category] ?? article.category, item: `${baseUrl}/akademi?kategori=${article.category}` },
+      { "@type": "ListItem", position: 4, name: article.title, item: articleUrl },
+    ],
   };
 
   return (
@@ -181,6 +213,10 @@ export default async function ArticlePage({ params }: PageProps) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
       />
       {/* Reading progress — fixed top bar */}
       <ReadingProgress />
