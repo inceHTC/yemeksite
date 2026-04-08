@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, BookOpen, Search, CalendarDays, GraduationCap } from "lucide-react";
+import { Home, BookOpen, Search, CalendarDays, GraduationCap, UserCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navItems = [
@@ -11,6 +11,7 @@ const navItems = [
   { href: "/ara",     label: "Ara",       icon: Search,        exact: false },
   { href: "/menu",    label: "Menü",      icon: CalendarDays,  exact: false },
   { href: "/akademi", label: "Dergi",     icon: GraduationCap, exact: false },
+  { href: "/profil",  label: "Profil",    icon: UserCircle,    exact: false },
 ];
 
 export function MobileNav() {
@@ -19,7 +20,7 @@ export function MobileNav() {
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-border/60 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/90 sm:hidden">
       {/* Safe area for devices with home indicator */}
-      <div className="grid grid-cols-5 pb-safe">
+      <div className="grid grid-cols-6 pb-safe">
         {navItems.map((item) => {
           const isActive = item.exact
             ? pathname === item.href

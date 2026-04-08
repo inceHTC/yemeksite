@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { Search, Menu, X, ChevronDown, BookOpen, CalendarDays, LifeBuoy, Baby } from "lucide-react";
+import { Search, Menu, X, ChevronDown, BookOpen, CalendarDays, LifeBuoy, Baby, UserCircle } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { BabyChip } from "./baby-chip";
 import { UserMenu } from "@/components/auth/user-menu";
@@ -18,10 +18,10 @@ const AGE_GROUPS = [
 ];
 
 const MAIN_LINKS = [
-  { href: "/menu",    label: "HAFTALIK MENÜ", icon: CalendarDays, variant: "amber" as const },
-   { href: "/destek",  label: "ÇÖZÜM MERKEZİ", icon: LifeBuoy,     variant: "default" as const },
-  { href: "/akademi", label: "DERGİ - Makaleler",          icon: BookOpen,     variant: "primary" as const },
- 
+  { href: "/menu",    label: "HAFTALIK MENÜ",   icon: CalendarDays,  variant: "amber" as const },
+  { href: "/destek",  label: "ÇÖZÜM MERKEZİ",   icon: LifeBuoy,      variant: "default" as const },
+  { href: "/akademi", label: "DERGİ - Makaleler", icon: BookOpen,     variant: "primary" as const },
+  { href: "/profil",  label: "BEBEK PROFİLİ",   icon: UserCircle,    variant: "default" as const },
 ];
 
 function BrandLogo() {
