@@ -55,6 +55,33 @@ async function FeaturedRecipes() {
   );
 }
 
+async function WhyTokBebekStats() {
+  const supabase = await createClient();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { count } = await (supabase as any)
+    .from("articles")
+    .select("*", { count: "exact", head: true })
+    .eq("is_published", true);
+
+  const articleCount = count ?? 0;
+
+  return (
+    <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 mb-12">
+      {[
+        { value: "100+",              label: "Tarif" },
+        { value: String(articleCount), label: "Dergi Makalesi" },
+        { value: "5",                 label: "Yaş Grubu" },
+        { value: "≤30",               label: "Dakikada Hazır" },
+      ].map((stat) => (
+        <div key={stat.label}>
+          <p className="font-heading text-4xl sm:text-5xl font-extrabold text-background leading-none">{stat.value}</p>
+          <p className="text-background/50 text-xs sm:text-sm mt-1 font-medium">{stat.label}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 async function FeaturedArticles() {
   const supabase = await createClient();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -300,19 +327,18 @@ export default function HomePage() {
               </p>
 
               {/* İstatistikler */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 mb-12">
-                {[
-                  { value: "100+", label: "Tarif" },
-                  { value: "46",   label: "Dergi Makalesi" },
-                  { value: "5",    label: "Yaş Grubu" },
-                  { value: "≤30",  label: "Dakikada Hazır" },
-                ].map((stat) => (
-                  <div key={stat.label}>
-                    <p className="font-heading text-4xl sm:text-5xl font-extrabold text-background leading-none">{stat.value}</p>
-                    <p className="text-background/50 text-xs sm:text-sm mt-1 font-medium">{stat.label}</p>
-                  </div>
-                ))}
-              </div>
+              <Suspense fallback={
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 mb-12">
+                  {["Tarif", "Dergi Makalesi", "Yaş Grubu", "Dakikada Hazır"].map((label) => (
+                    <div key={label}>
+                      <div className="h-12 w-16 bg-background/20 rounded animate-pulse mb-1" />
+                      <p className="text-background/50 text-xs sm:text-sm mt-1 font-medium">{label}</p>
+                    </div>
+                  ))}
+                </div>
+              }>
+                <WhyTokBebekStats />
+              </Suspense>
 
               {/* Özellikler listesi */}
               <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
