@@ -11,7 +11,7 @@ export function HeroSection() {
       {/* ── Mobil görsel (< lg) ── */}
       <div className="relative w-full lg:hidden" style={{ aspectRatio: "1/1" }}>
         <Image
-          src="/yenimobil.png"
+          src="/mobile1.jpg"
           alt="Tok Bebek"
           fill
           priority
