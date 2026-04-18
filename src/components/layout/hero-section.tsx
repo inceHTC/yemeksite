@@ -17,6 +17,7 @@ export function HeroSection() {
           priority
           className="object-cover object-center"
           sizes="100vw"
+          unoptimized
         />
       </div>
 
@@ -30,6 +31,7 @@ export function HeroSection() {
           priority
           className="w-full h-auto block"
           sizes="100vw"
+          unoptimized
         />
       </div>
 

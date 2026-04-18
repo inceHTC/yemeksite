@@ -214,6 +214,7 @@ function ArchiveArticleRow({ article }: { article: Article }) {
               alt={article.title}
               fill
               className="object-cover group-hover:scale-105 transition-transform duration-300"
+              unoptimized
             />
           ) : (
             <div className="absolute inset-0 flex items-center justify-center">

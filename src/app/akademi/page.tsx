@@ -230,6 +230,7 @@ function ArticleCard({ article, priority = false }: { article: Article; priority
               fill
               className="object-cover group-hover:scale-105 transition-transform duration-500"
               priority={priority}
+              unoptimized
             />
           ) : (
             <div className="absolute inset-0 flex items-center justify-center">

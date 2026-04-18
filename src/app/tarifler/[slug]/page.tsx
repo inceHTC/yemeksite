@@ -137,6 +137,7 @@ export default async function RecipeDetailPage({ params }: PageProps) {
                 className="object-cover"
                 priority
                 sizes="(max-width: 640px) 100vw, 576px"
+                unoptimized
               />
             ) : (
               <div className="absolute inset-0 flex items-center justify-center text-8xl bg-gradient-to-br from-primary/10 to-accent/20">
