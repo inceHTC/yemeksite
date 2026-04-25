@@ -97,7 +97,7 @@ export function OnboardingWizard() {
       {/* Başlık */}
       <div className="text-center mb-8">
         <a href="/" className="inline-block font-heading text-3xl font-bold text-primary mb-2">
-          Bebek<span className="text-foreground">Tok</span>
+          Tok<span className="text-foreground">Bebek</span>
         </a>
         <p className="text-muted-foreground text-sm">Kişisel bebek profili oluştur</p>
       </div>
