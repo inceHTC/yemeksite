@@ -36,7 +36,7 @@ export function AgeSelectorSection({
         <div className="text-center mb-5">
           <h1 className="font-heading font-extrabold leading-tight inline-flex flex-wrap justify-center gap-x-3">
             <span className="text-2xl sm:text-4xl" style={{ color: "#2D1810" }}>Bebekler Tok,</span>
-            <span className="text-2xl sm:text-4xl" style={{ color: "#C2410C" }}>Anneler Mutlu.</span>
+            <span className="text-2xl sm:text-4xl" style={{ color: "#EA353B" }}>Anneler Mutlu.</span>
           </h1>
           <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mt-4">
             🍼 Bebeğin kaç aylık?

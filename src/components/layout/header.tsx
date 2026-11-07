@@ -165,7 +165,6 @@ export function Header() {
                 { icon: "✨", text: "Uzman onaylı içerikler" },
                 { icon: "🍼", text: "Bebeğine özel öneriler" },
                 { icon: "🚨", text: "Çözüm Merkezi — Gaz, kabızlık, seçici yeme" },
-                { icon: "📸", text: "Instagram'da takip et — @tok_bebek" },
               ].map(({ icon, text }) => (
                 <span key={text} className="inline-flex items-center gap-2 mx-6 text-xs font-medium opacity-85 tracking-wide">
                   <span>{icon}</span>
