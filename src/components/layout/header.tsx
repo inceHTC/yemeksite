@@ -168,7 +168,7 @@ export function Header() {
               ].map(({ icon, text }) => (
                 <span key={text} className="inline-flex items-center gap-2 mx-6 text-xs font-medium opacity-85 tracking-wide">
                   <span>{icon}</span>
-                  <span>{text}</span>
+                  <span style={text === "Haftalık menü planlayıcı" ? { color: "#EA353B" } : undefined}>{text}</span>
                   <span className="ml-6 w-1 h-1 rounded-full bg-current opacity-30 inline-block" />
                 </span>
               ))}
@@ -205,9 +205,10 @@ export function Header() {
                       link.variant === "primary"
                         ? "text-primary hover:bg-primary/10"
                         : link.variant === "amber"
-                        ? "text-amber-700 dark:text-amber-400 hover:bg-amber-500/10"
+                        ? "hover:bg-red-500/10"
                         : "text-foreground/70 hover:text-foreground hover:bg-muted"
                     )}
+                    style={link.variant === "amber" ? { color: "#EA353B" } : undefined}
                   >
                     <Icon className="w-4 h-4" />
                     {link.label}
@@ -355,9 +356,10 @@ export function Header() {
                           link.variant === "primary"
                             ? "text-primary hover:bg-primary/8"
                             : link.variant === "amber"
-                            ? "text-amber-700 dark:text-amber-400 hover:bg-amber-500/8"
+                            ? "hover:bg-red-500/8"
                             : "text-foreground hover:bg-muted"
                         )}
+                        style={link.variant === "amber" ? { color: "#EA353B" } : undefined}
                       >
                         <Icon className="w-4 h-4" />
                         {link.label}
