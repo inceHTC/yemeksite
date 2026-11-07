@@ -163,14 +163,23 @@ export async function deleteOwnReview(reviewId: string, token: string) {
 }
 
 export async function getReviews(recipeId: string) {
-  const adminDb = createAdminClient();
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const { data } = await (adminDb as any)
-    .from("recipe_reviews")
-    .select("id, rating, comment, baby_age_at_review, created_at, reviewer_name, admin_reply")
-    .eq("recipe_id", recipeId)
-    .eq("is_approved", true)
-    .order("created_at", { ascending: false });
+  try {
+    const adminDb = createAdminClient();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { data, error } = await (adminDb as any)
+      .from("recipe_reviews")
+      .select("id, rating, comment, baby_age_at_review, created_at, reviewer_name, admin_reply")
+      .eq("recipe_id", recipeId)
+      .eq("is_approved", true)
+      .order("created_at", { ascending: false });
 
-  return data ?? [];
+    if (error) {
+      console.error("[getReviews] Supabase error:", error.message);
+      return [];
+    }
+    return data ?? [];
+  } catch (err) {
+    console.error("[getReviews] Admin client error:", err);
+    return [];
+  }
 }

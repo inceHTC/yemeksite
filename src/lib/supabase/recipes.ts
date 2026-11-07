@@ -51,7 +51,10 @@ export async function getRecipes(
 
   const { data, error, count } = await query;
 
-  if (error) throw new Error(error.message);
+  if (error) {
+    console.error("[getRecipes] Supabase error:", error.message);
+    return { recipes: [], total: 0 };
+  }
   return { recipes: data ?? [], total: count ?? 0 };
 }
 
