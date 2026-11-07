@@ -5,6 +5,7 @@ import { Suspense } from "react";
 import { ArrowRight, Leaf, ShieldCheck, FlaskConical, BookOpen, Clock } from "lucide-react";
 import { Header } from "@/components/layout/header";
 import { HeroSection } from "@/components/layout/hero-section";
+import { AgeSelectorSection } from "@/components/layout/age-selector-section";
 import { MobileNav } from "@/components/layout/mobile-nav";
 import { RecipeCard } from "@/components/recipe/recipe-card";
 import { getRecipes, type RecipeRow } from "@/lib/supabase/recipes";
@@ -42,6 +43,23 @@ const TRUST_ITEMS = [
   { icon: FlaskConical, label: "Bilimsel Temelli", desc: "Harvard araştırmalarına dayalı" },
   { icon: Leaf, label: "Doğal İçerikler", desc: "İşlenmiş gıda, şeker, tuz yok" },
 ];
+
+const AGE_FILTER_GROUPS = [
+  { id: "4-6",  ageMin: 4,  ageMax: 6  },
+  { id: "6-9",  ageMin: 6,  ageMax: 9  },
+  { id: "9-12", ageMin: 9,  ageMax: 12 },
+  { id: "12+",  ageMin: 12, ageMax: 36 },
+];
+
+async function HeroAgeData() {
+  const entries = await Promise.all(
+    AGE_FILTER_GROUPS.map(async ({ id, ageMin, ageMax }) => {
+      const { recipes } = await getRecipes({ ageMin, ageMax }, 1, 4);
+      return [id, recipes] as const;
+    })
+  );
+  return <AgeSelectorSection ageRecipes={Object.fromEntries(entries)} />;
+}
 
 async function FeaturedRecipes() {
   const { recipes } = await getRecipes({ sort: "newest" }, 1, 6);
@@ -191,13 +209,17 @@ export default function HomePage() {
         {/* ═══ HERO ═══ */}
         <HeroSection />
 
+        {/* ═══ YAŞ SEÇİCİ ═══ */}
+        <Suspense fallback={<AgeSelectorSkeleton />}>
+          <HeroAgeData />
+        </Suspense>
+
         <div className="container mx-auto px-4 max-w-6xl space-y-16 py-10">
 
           {/* ═══ SON EKLENEN TARİFLER ═══ */}
           <section>
             <SectionHeader
               title="Son Eklenen Tarifler"
-              subtitle="Bu hafta eklendi"
               href="/tarifler"
             />
             <div className="mt-6">
@@ -440,6 +462,26 @@ function SectionHeader({
         </Link>
       )}
     </div>
+  );
+}
+
+function AgeSelectorSkeleton() {
+  return (
+    <section className="bg-secondary/20 border-b border-border">
+      <div className="container mx-auto px-4 max-w-3xl py-8 sm:py-10">
+        <div className="h-3 w-36 bg-muted rounded mx-auto mb-5 animate-pulse" />
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          {[0, 1, 2, 3].map((i) => (
+            <div key={i} className="rounded-2xl bg-muted animate-pulse h-20" />
+          ))}
+        </div>
+        <div className="flex justify-center gap-2 mt-5">
+          {[0, 1, 2, 3].map((i) => (
+            <div key={i} className="rounded-full bg-muted animate-pulse h-7 w-24" />
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }
 
