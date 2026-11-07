@@ -5,7 +5,7 @@ import { Header } from "@/components/layout/header";
 import { MobileNav } from "@/components/layout/mobile-nav";
 import { Breadcrumb } from "@/components/shared/breadcrumb";
 import { RecipeCard } from "@/components/recipe/recipe-card";
-import { getRecipesCached, type RecipeRow } from "@/lib/supabase/recipes";
+import { getRecipes, type RecipeRow } from "@/lib/supabase/recipes";
 import { Snowflake, ChevronRight, BookOpen, AlertCircle } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -16,8 +16,8 @@ export const metadata: Metadata = {
 };
 
 async function DisRecipes() {
-  const { recipes } = await getRecipesCached({ healthTags: ["teething"], sort: "newest" }, 1, 8);
-  const { recipes: softRecipes } = await getRecipesCached({ texture: "smooth", sort: "newest" }, 1, 8);
+  const { recipes } = await getRecipes({ healthTags: ["teething"], sort: "newest" }, 1, 8);
+  const { recipes: softRecipes } = await getRecipes({ texture: "smooth", sort: "newest" }, 1, 8);
   const recipeIds = new Set(recipes.map((r: RecipeRow) => r.id));
   const all = [...recipes, ...softRecipes.filter((r: RecipeRow) => !recipeIds.has(r.id))].slice(0, 12);
   if (!all.length) return null;

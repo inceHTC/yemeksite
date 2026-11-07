@@ -5,7 +5,7 @@ import { Header } from "@/components/layout/header";
 import { MobileNav } from "@/components/layout/mobile-nav";
 import { Breadcrumb } from "@/components/shared/breadcrumb";
 import { RecipeCard } from "@/components/recipe/recipe-card";
-import { getRecipesCached, type RecipeRow } from "@/lib/supabase/recipes";
+import { getRecipes, type RecipeRow } from "@/lib/supabase/recipes";
 import { Shield, ChevronRight, BookOpen, AlertCircle } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 };
 
 async function BagisiklikRecipes() {
-  const { recipes } = await getRecipesCached({ healthTags: ["immunity"], sort: "newest" }, 1, 12);
+  const { recipes } = await getRecipes({ healthTags: ["immunity"], sort: "newest" }, 1, 12);
   if (!recipes.length) return null;
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">

@@ -1,4 +1,3 @@
-import { unstable_cache } from "next/cache";
 import { createClient, createBuildClient } from "./server";
 import type { Database } from "@/types/supabase";
 import type { RecipeFilters } from "@/store/recipe-store";
@@ -9,9 +8,13 @@ export type RecipeWithDetails = RecipeRow & {
   recipe_ingredients: RecipeIngredient[];
 };
 
-// Sorgu mantığı — herhangi bir Supabase client ile çalışır
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-async function runGetRecipes(supabase: any, filters: Partial<RecipeFilters>, page: number, pageSize: number) {
+export async function getRecipes(
+  filters: Partial<RecipeFilters> = {},
+  page = 1,
+  pageSize = 12
+) {
+  const supabase = await createClient();
+
   let query = supabase
     .from("recipes")
     .select("*", { count: "exact" })
@@ -53,24 +56,6 @@ async function runGetRecipes(supabase: any, filters: Partial<RecipeFilters>, pag
   }
   return { recipes: (data ?? []) as RecipeRow[], total: count ?? 0 };
 }
-
-// Auth gerektiren sayfalar için (tarifler filtre, admin)
-export async function getRecipes(
-  filters: Partial<RecipeFilters> = {},
-  page = 1,
-  pageSize = 12
-) {
-  const supabase = await createClient();
-  return runGetRecipes(supabase, filters, page, pageSize);
-}
-
-// Halka açık sayfalar için — 1 saatlik önbellek (Supabase kotasını dramatik düşürür)
-export const getRecipesCached = unstable_cache(
-  async (filters: Partial<RecipeFilters>, page: number, pageSize: number) =>
-    runGetRecipes(createBuildClient(), filters, page, pageSize),
-  ["recipes"],
-  { revalidate: 3600, tags: ["recipes"] }
-);
 
 export async function getRecipeBySlug(slug: string): Promise<RecipeWithDetails | null> {
   const supabase = await createClient();

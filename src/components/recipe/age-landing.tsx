@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Header } from "@/components/layout/header";
 import { MobileNav } from "@/components/layout/mobile-nav";
 import { RecipeCard } from "@/components/recipe/recipe-card";
-import { getRecipesCached, type RecipeRow } from "@/lib/supabase/recipes";
+import { getRecipes, type RecipeRow } from "@/lib/supabase/recipes";
 import { Breadcrumb } from "@/components/shared/breadcrumb";
 
 interface AgeLandingProps {
@@ -18,7 +18,11 @@ interface AgeLandingProps {
 }
 
 async function AgeRecipeGrid({ ageMin, ageMax }: { ageMin: number; ageMax: number }) {
-  const { recipes, total } = await getRecipesCached({ ageMin, ageMax, sort: "newest" }, 1, 24);
+  let recipes: RecipeRow[] = [], total = 0;
+  try {
+    const result = await getRecipes({ ageMin, ageMax, sort: "newest" }, 1, 24);
+    recipes = result.recipes; total = result.total;
+  } catch { /* Supabase hatası */ }
   if (!recipes.length) return <p className="text-muted-foreground">Henüz tarif eklenmedi.</p>;
   return (
     <div>

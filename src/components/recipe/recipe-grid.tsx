@@ -47,7 +47,11 @@ function parseFilters(params: Record<string, string | string[]>): Partial<Recipe
 export async function RecipeGrid({ searchParams }: RecipeGridProps) {
   const filters = parseFilters(searchParams);
   const page = Math.max(1, Number(searchParams.page ?? 1));
-  const { recipes, total } = await getRecipes(filters, page, PAGE_SIZE);
+  let recipes: RecipeRow[] = [], total = 0;
+  try {
+    const result = await getRecipes(filters, page, PAGE_SIZE);
+    recipes = result.recipes; total = result.total;
+  } catch { /* Supabase hatası — boş göster */ }
   const totalPages = Math.ceil(total / PAGE_SIZE);
 
   if (recipes.length === 0) {
