@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { createClient } from "@/lib/supabase/server";
+import { unstable_cache } from "next/cache";
+import { createBuildClient } from "@/lib/supabase/server";
 import type { Article } from "@/types/supabase";
 import { Header } from "@/components/layout/header";
 import { MobileNav } from "@/components/layout/mobile-nav";
@@ -37,16 +38,20 @@ const TR_MONTHS: Record<number, string> = {
 
 type GroupedArticles = Record<number, Record<number, Article[]>>;
 
-async function getAllArticles(): Promise<Article[]> {
-  const supabase = await createClient();
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const { data } = await (supabase as any)
-    .from("articles")
-    .select("id, slug, title, excerpt, category, reading_time_min, image_url, created_at")
-    .eq("is_published", true)
-    .order("created_at", { ascending: false });
-  return (data ?? []) as Article[];
-}
+const getAllArticles = unstable_cache(
+  async (): Promise<Article[]> => {
+    const supabase = createBuildClient();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { data } = await (supabase as any)
+      .from("articles")
+      .select("id, slug, title, excerpt, category, reading_time_min, image_url, created_at")
+      .eq("is_published", true)
+      .order("created_at", { ascending: false });
+    return (data ?? []) as Article[];
+  },
+  ["articles-archive"],
+  { revalidate: 3600, tags: ["articles"] }
+);
 
 function groupByYearMonth(articles: Article[]): GroupedArticles {
   const grouped: GroupedArticles = {};

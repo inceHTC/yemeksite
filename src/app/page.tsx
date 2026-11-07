@@ -8,8 +8,9 @@ import { HeroSection } from "@/components/layout/hero-section";
 import { AgeSelectorSection } from "@/components/layout/age-selector-section";
 import { MobileNav } from "@/components/layout/mobile-nav";
 import { RecipeCard } from "@/components/recipe/recipe-card";
-import { getRecipes, type RecipeRow } from "@/lib/supabase/recipes";
-import { createClient } from "@/lib/supabase/server";
+import { unstable_cache } from "next/cache";
+import { getRecipesCached, type RecipeRow } from "@/lib/supabase/recipes";
+import { createBuildClient } from "@/lib/supabase/server";
 import type { Article } from "@/types/supabase";
 
 
@@ -54,7 +55,7 @@ const AGE_FILTER_GROUPS = [
 async function HeroAgeData() {
   const entries = await Promise.all(
     AGE_FILTER_GROUPS.map(async ({ id, ageMin, ageMax }) => {
-      const { recipes } = await getRecipes({ ageMin, ageMax }, 1, 4);
+      const { recipes } = await getRecipesCached({ ageMin, ageMax }, 1, 4);
       return [id, recipes] as const;
     })
   );
@@ -62,7 +63,7 @@ async function HeroAgeData() {
 }
 
 async function FeaturedRecipes() {
-  const { recipes } = await getRecipes({ sort: "newest" }, 1, 6);
+  const { recipes } = await getRecipesCached({ sort: "newest" }, 1, 6);
   if (!recipes.length) return null;
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
@@ -73,15 +74,38 @@ async function FeaturedRecipes() {
   );
 }
 
-async function WhyTokBebekStats() {
-  const supabase = await createClient();
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const { count } = await (supabase as any)
-    .from("articles")
-    .select("*", { count: "exact", head: true })
-    .eq("is_published", true);
+const getArticleStats = unstable_cache(
+  async () => {
+    const supabase = createBuildClient();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { count } = await (supabase as any)
+      .from("articles")
+      .select("*", { count: "exact", head: true })
+      .eq("is_published", true);
+    return count ?? 0;
+  },
+  ["article-stats"],
+  { revalidate: 3600, tags: ["articles"] }
+);
 
-  const articleCount = count ?? 0;
+const getFeaturedArticles = unstable_cache(
+  async () => {
+    const supabase = createBuildClient();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { data } = await (supabase as any)
+      .from("articles")
+      .select("*")
+      .eq("is_published", true)
+      .order("created_at", { ascending: false })
+      .limit(4);
+    return data ?? [];
+  },
+  ["featured-articles"],
+  { revalidate: 3600, tags: ["articles"] }
+);
+
+async function WhyTokBebekStats() {
+  const articleCount = await getArticleStats();
 
   return (
     <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 mb-12">
@@ -101,14 +125,7 @@ async function WhyTokBebekStats() {
 }
 
 async function FeaturedArticles() {
-  const supabase = await createClient();
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const { data } = await (supabase as any)
-    .from("articles")
-    .select("*")
-    .eq("is_published", true)
-    .order("created_at", { ascending: false })
-    .limit(4);
+  const data = await getFeaturedArticles();
   const articles: Article[] = data ?? [];
   if (!articles.length) return null;
 
@@ -189,7 +206,7 @@ async function FeaturedArticles() {
 }
 
 async function MealSection({ mealType }: { mealType: string }) {
-  const { recipes } = await getRecipes({ mealType } as Parameters<typeof getRecipes>[0], 1, 4);
+  const { recipes } = await getRecipesCached({ mealType } as Parameters<typeof getRecipesCached>[0], 1, 4);
   if (!recipes.length) return null;
   return (
     <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">

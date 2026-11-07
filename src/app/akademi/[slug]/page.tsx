@@ -36,6 +36,8 @@ const CATEGORY_ACCENT: Record<string, string> = {
   safety: "text-orange-700 dark:text-orange-300 bg-orange-100 dark:bg-orange-900/50",
 };
 
+export const revalidate = 3600;
+
 export async function generateStaticParams() {
   const supabase = createBuildClient();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

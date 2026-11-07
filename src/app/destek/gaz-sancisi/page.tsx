@@ -5,7 +5,7 @@ import { Header } from "@/components/layout/header";
 import { MobileNav } from "@/components/layout/mobile-nav";
 import { Breadcrumb } from "@/components/shared/breadcrumb";
 import { RecipeCard } from "@/components/recipe/recipe-card";
-import { getRecipes, type RecipeRow } from "@/lib/supabase/recipes";
+import { getRecipesCached, type RecipeRow } from "@/lib/supabase/recipes";
 import { Wind, ChevronRight, BookOpen, AlertCircle } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -47,7 +47,7 @@ const faqSchema = {
 };
 
 async function GazRecipes() {
-  const { recipes } = await getRecipes({ healthTags: ["gas_friendly"], sort: "newest" }, 1, 12);
+  const { recipes } = await getRecipesCached({ healthTags: ["gas_friendly"], sort: "newest" }, 1, 12);
   if (!recipes.length) return null;
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">

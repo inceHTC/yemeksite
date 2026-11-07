@@ -19,6 +19,8 @@ import { ReviewFormToggle } from "@/components/recipe/review-form-toggle";
 import { RecipeVideo } from "@/components/recipe/recipe-video";
 import { Suspense } from "react";
 
+export const revalidate = 3600;
+
 export async function generateStaticParams() {
   const slugs = await getAllSlugs();
   return slugs.map(({ slug }) => ({ slug }));

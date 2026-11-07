@@ -4,7 +4,8 @@ import Image from "next/image";
 import { Suspense } from "react";
 import { Header } from "@/components/layout/header";
 import { MobileNav } from "@/components/layout/mobile-nav";
-import { createClient } from "@/lib/supabase/server";
+import { unstable_cache } from "next/cache";
+import { createBuildClient } from "@/lib/supabase/server";
 import type { Article } from "@/types/supabase";
 import { Clock, BookOpen, Archive } from "lucide-react";
 import { CategoryFilter } from "./category-filter";
@@ -45,18 +46,22 @@ const CATEGORY_COLOR: Record<string, string> = {
   safety: "bg-orange-100 text-orange-700 dark:bg-orange-900/50 dark:text-orange-300",
 };
 
-async function getArticles(category?: string) {
-  const supabase = await createClient();
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  let query = (supabase as any)
-    .from("articles")
-    .select("*")
-    .eq("is_published", true)
-    .order("created_at", { ascending: false });
-  if (category) query = query.eq("category", category);
-  const { data } = await query;
-  return (data ?? []) as Article[];
-}
+const getArticles = unstable_cache(
+  async (category?: string) => {
+    const supabase = createBuildClient();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let query = (supabase as any)
+      .from("articles")
+      .select("*")
+      .eq("is_published", true)
+      .order("created_at", { ascending: false });
+    if (category) query = query.eq("category", category);
+    const { data } = await query;
+    return (data ?? []) as Article[];
+  },
+  ["articles"],
+  { revalidate: 3600, tags: ["articles"] }
+);
 
 interface PageProps {
   searchParams: Promise<{ kategori?: string }>;
