@@ -168,7 +168,7 @@ export function Header() {
               ].map(({ icon, text }) => (
                 <span key={text} className="inline-flex items-center gap-2 mx-6 text-xs font-medium opacity-85 tracking-wide">
                   <span>{icon}</span>
-                  <span style={text === "Haftalık menü planlayıcı" ? { color: "#EA353B" } : undefined}>{text}</span>
+                  <span>{text}</span>
                   <span className="ml-6 w-1 h-1 rounded-full bg-current opacity-30 inline-block" />
                 </span>
               ))}
@@ -203,12 +203,16 @@ export function Header() {
                     className={cn(
                       "flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-sm font-semibold transition-all whitespace-nowrap",
                       link.variant === "primary"
-                        ? "text-primary hover:bg-primary/10"
+                        ? "hover:bg-primary/10"
                         : link.variant === "amber"
                         ? "hover:bg-red-500/10"
                         : "text-foreground/70 hover:text-foreground hover:bg-muted"
                     )}
-                    style={link.variant === "amber" ? { color: "#EA353B" } : undefined}
+                    style={
+                      link.variant === "amber" ? { color: "#EA353B" } :
+                      link.variant === "primary" ? { color: "#3160FC" } :
+                      undefined
+                    }
                   >
                     <Icon className="w-4 h-4" />
                     {link.label}
@@ -354,12 +358,16 @@ export function Header() {
                         className={cn(
                           "flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-colors",
                           link.variant === "primary"
-                            ? "text-primary hover:bg-primary/8"
+                            ? "hover:bg-primary/8"
                             : link.variant === "amber"
                             ? "hover:bg-red-500/8"
                             : "text-foreground hover:bg-muted"
                         )}
-                        style={link.variant === "amber" ? { color: "#EA353B" } : undefined}
+                        style={
+                          link.variant === "amber" ? { color: "#EA353B" } :
+                          link.variant === "primary" ? { color: "#3160FC" } :
+                          undefined
+                        }
                       >
                         <Icon className="w-4 h-4" />
                         {link.label}

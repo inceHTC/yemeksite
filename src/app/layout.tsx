@@ -41,6 +41,7 @@ export const metadata: Metadata = {
     shortcut: "/icon.png",
   },
   appleWebApp: { capable: true, statusBarStyle: "default", title: "Tok Bebek" },
+  themeColor: "#007a3f",
   formatDetection: { telephone: false },
   description:
     "Bebeğinizin yaşına özel, bilimsel ve lezzetli yemek tarifleri. WHO ve AAP verilerine dayalı, Türkiye'nin en kapsamlı bebek beslenmesi platformu.",
