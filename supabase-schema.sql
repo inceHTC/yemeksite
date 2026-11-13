@@ -82,10 +82,16 @@ create table saved_recipes (
 create table recipe_reviews (
   id uuid primary key default gen_random_uuid(),
   recipe_id uuid references recipes(id) on delete cascade not null,
-  user_id uuid references auth.users not null,
+  user_id uuid references auth.users,
+  reviewer_name text,
+  reviewer_email text,
   rating integer not null check (rating between 1 and 5),
   comment text,
   baby_age_at_review integer,
+  is_approved boolean default false,
+  edit_token uuid,
+  admin_reply text,
+  replied_at timestamptz,
   created_at timestamptz default now()
 );
 
@@ -155,4 +161,4 @@ create policy "Yorumlar herkese açık"
   on recipe_reviews for select using (true);
 
 create policy "Kullanıcı yorum ekleyebilir"
-  on recipe_reviews for insert with check (auth.uid() = user_id);
+  on recipe_reviews for insert with check (true);

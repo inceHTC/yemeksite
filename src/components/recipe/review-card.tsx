@@ -11,9 +11,9 @@ const AGE_OPTIONS = [
 ];
 
 function formatAge(months: number) {
-  if (months < 12) return `Bebeğim ${months} aylık`;
+  if (months < 12) return `Bebek Yaşı: ${months} aylık`;
   const y = Math.floor(months / 12), m = months % 12;
-  return m > 0 ? `Bebeğim ${y} yaş ${m} aylık` : `Bebeğim ${y} yaşında`;
+  return m > 0 ? `Bebek Yaşı: ${y} yaş ${m} aylık` : `Bebek Yaşı: ${y} yaşında`;
 }
 function formatDate(iso: string) {
   return new Date(iso).toLocaleDateString("tr-TR", { year: "numeric", month: "long", day: "numeric" });
