@@ -52,9 +52,44 @@ const STRATEGIES = [
   "Sofrayı stressiz tutun; yememesi için ne ceza verin ne de ödül kullanın. Ödül sistemi bile yemekle olumsuz ilişki kurabilir.",
 ];
 
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "Seçici yeme neden olur?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Neofobia (yeni besinlerden korku) 2-6 yaş arası çocukların %50'sinde görülen gelişimsel bir evre. Duyu hassasiyeti, kontrol ihtiyacı ve baskıya karşı direnç de seçici yemenin başlıca nedenleridir. Evrimsel bir savunma mekanizmasıdır.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Seçici yiyen çocuğa ne yapmalı?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Zorlamak direnç artırır. Yeni besini 10-15 kez farklı şekillerde sunun, çocuğu mutfağa dahil edin, yeni besini sevdiği besinlerle eşleştirin. Sofrayı stressiz tutmak ve ödül/ceza sisteminden kaçınmak en önemli adımlardır.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Seçici yeme ne zaman geçer?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Çoğu çocukta neofobia okul öncesi dönemde (3-5 yaş) azalmaya başlar. Ancak duyu hassasiyetiyle ilişkili vakalarda uğraşı terapisti (OT) gibi profesyonel destek faydalı olabilir. Sabırlı ve tutarlı bir yaklaşım süreci kısaltır.",
+      },
+    },
+  ],
+};
+
 export default function SeciciYemePage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       <Header />
       <main className="flex-1 pb-20 sm:pb-0">
 

@@ -65,9 +65,44 @@ const SEASONAL = [
   },
 ];
 
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "Bebeğin bağışıklığını hangi besinler güçlendirir?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Çinko (et, baklagiller, kabak çekirdeği), C vitamini (kivi, brokoli, biber), D vitamini (yağlı balık, yumurta sarısı), probiyotik (yoğurt, kefir) ve beta-glukan (yulaf, mantar) içeren besinler bağışıklık sistemini destekler.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Bebeklerde bağışıklık ne zaman güçlenir?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Doğumda anneden gelen antikorlar ilk 6 ayda azalır. Tamamlayıcı beslenmeyle birlikte mikrobiyom çeşitlenmesi başlar. İlk 3 yıl bağışıklık gelişimi için kritik dönemdir. Anne sütü bu süreçte önemli bir koruma sağlar.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Bebeğe probiyotik ne zaman verilir?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "6 aylıktan itibaren yoğurt ve kefir gibi fermente ürünler verilebilir. Bağırsak mikrobiyomunu dengeleyen probiyotikler, bağışıklığın yaklaşık %70'ini oluşturan bağırsak sistemini destekler. Antibiyotik kullanımı sonrasında özellikle önemlidir.",
+      },
+    },
+  ],
+};
+
 export default function BagisiklikPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       <Header />
       <main className="flex-1 pb-20 sm:pb-0">
 

@@ -75,9 +75,44 @@ const STRATEGIES = [
   },
 ];
 
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "Bebek reflüsü normal mi?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yemekten sonra hafif tükürme veya geri kaçırma normaldir; bebek mutlu, huzurlu ve kilo alıyorsa endişe edilmez. 12-18 aylarda alt özofagus sfinkteri güçlendikçe kendiliğinden geçer. Ağırlık kaybı, sürekli ağlama veya nefes güçlüğü varsa doktora başvurun.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Bebek reflüsünde nasıl beslenmeli?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Küçük ve sık öğünler verin, beslenmeden sonra 20-30 dakika dik pozisyonda tutun, kıvamlı püreler tercih edin. Domates, turunçgil gibi asitli ve yağlı besinlerden kaçının. Anne sütü en kolay sindirilen ve reflüyü en az etkileyen besindir.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Reflü ile kolik nasıl ayrılır?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Kolik genellikle akşam saatlerinde yoğunlaşan, belirli bir neden olmaksızın uzun süren ağlama nöbetleriyle kendini gösterir ve 3-4. ayda azalır. Reflüde ise yemekle doğrudan ilişkili ağlama, sık tükürme ve yemek reddi ön plandadır.",
+      },
+    },
+  ],
+};
+
 export default function RefluPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       <Header />
       <main className="flex-1 pb-20 sm:pb-0">
 

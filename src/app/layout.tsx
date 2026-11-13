@@ -32,13 +32,13 @@ export const metadata: Metadata = {
   manifest: "/manifest.json",
   icons: {
     icon: [
-      { url: "/icon.png", type: "image/png", sizes: "512x512" },
+      { url: "/icon-512.png", type: "image/png", sizes: "512x512" },
       { url: "/icon-192.png", type: "image/png", sizes: "192x192" },
     ],
     apple: [
-      { url: "/apple-icon.png", type: "image/png", sizes: "512x512" },
+      { url: "/icon-512.png", type: "image/png", sizes: "512x512" },
     ],
-    shortcut: "/icon.png",
+    shortcut: "/icon-512.png",
   },
   appleWebApp: { capable: true, statusBarStyle: "default", title: "Tok Bebek" },
   themeColor: "#007a3f",
@@ -126,7 +126,20 @@ const organizationSchema = {
     "@type": "Country",
     name: "Türkiye",
   },
-  knowsAbout: ["bebek beslenmesi", "tamamlayıcı besin", "bebek yemekleri", "ek gıda"],
+  knowsAbout: [
+    "bebek beslenmesi",
+    "tamamlayıcı besin",
+    "bebek yemekleri",
+    "ek gıda",
+    "bebek tarifleri",
+    "4-6 ay bebek beslenmesi",
+    "emzirme",
+    "bebek gelişimi",
+  ],
+  sameAs: [
+    "https://www.instagram.com/tokbebek",
+    "https://twitter.com/tokbebek",
+  ],
 };
 
 export default function RootLayout({

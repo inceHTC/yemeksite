@@ -33,6 +33,9 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env.local
 
+# migration scripts (may contain secrets)
+migrate.mjs
+
 # vercel
 .vercel
 

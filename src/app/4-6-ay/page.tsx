@@ -4,13 +4,25 @@ import { AgeLandingPage } from "@/components/recipe/age-landing";
 export const metadata: Metadata = {
   title: "4-6 Aylık Bebek Yemekleri — İlk Tamamlayıcı Besin Tarifleri",
   description: "4, 5 ve 6 aylık bebekler için ilk tamamlayıcı besin tarifleri. Tek malzemeli, pürüzsüz püreler. Elma, havuç, tatlı patates ve daha fazlası.",
-  keywords: ["4 aylık bebek ne yer", "5 aylık bebek yemekleri", "6 aylık bebek yemekleri", "ilk tamamlayıcı besin", "bebek püresi tarifleri"],
+  keywords: ["4 aylık bebek ne yer", "5 aylık bebek yemekleri", "6 aylık bebek yemekleri", "ilk tamamlayıcı besin", "bebek püresi tarifleri", "bebeğe ilk yemek ne verilir", "4 ay ek gıdaya geçiş", "bebek ilk ek gıda", "tek malzemeli bebek püresi", "bebek elma püresi"],
   alternates: { canonical: "https://tokbebek.com.tr/4-6-ay" },
+};
+
+const breadcrumbLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Ana Sayfa", item: "https://tokbebek.com.tr" },
+    { "@type": "ListItem", position: 2, name: "Tarifler", item: "https://tokbebek.com.tr/tarifler" },
+    { "@type": "ListItem", position: 3, name: "4-6 Aylık Bebek Yemekleri", item: "https://tokbebek.com.tr/4-6-ay" },
+  ],
 };
 
 export default function FourToSixPage() {
   return (
-    <AgeLandingPage
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
+      <AgeLandingPage
       ageMin={4}
       ageMax={6}
       emoji="🌱"
@@ -33,5 +45,6 @@ export default function FourToSixPage() {
         "Kalan püreler buz kalıbına koyularak 1 ay dondurulabilir",
       ]}
     />
+    </>
   );
 }

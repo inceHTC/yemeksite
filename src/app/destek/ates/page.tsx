@@ -52,9 +52,44 @@ const TIPS = [
   "Ateş düşünce iştah kendiliğinden açılır; acele etmeyin.",
 ];
 
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "Ateşli bebeğe ne yedireyim?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Ateşli bebekte öncelik sıvı kaybını önlemektir. Anne sütü, su (6 ay+), şekersiz elma-armut kompostosu ve çorba suyu en uygun sıvı kaynaklarıdır. Soğuk püre ve serin yoğurt hem rahatlık hem enerji sağlar. Yemek yemiyorsa zorlamayın.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Ateşli bebek yemek yemiyorsa ne yapmalı?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Ateş döneminde iştahsızlık tamamen normaldir ve geçicidir. Zorlamayın. Favori ve bilinen besinleri sunun, küçük porsiyonlar ve sık aralıklarla verin. Yeni besinler denemeyin. Ateş düşünce iştah kendiliğinden açılır.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Bebek ateşi ne zaman tehlikelidir?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "3 aydan küçük bebeklerde 38°C üzeri ateş, herhangi bir yaşta 40°C üzeri ateş veya 48 saatten uzun süren ateş acil değerlendirme gerektirir. Ateşle birlikte döküntü, nefes güçlüğü, bilinç değişikliği veya şiddetli baş ağrısı varsa hemen doktora gidin.",
+      },
+    },
+  ],
+};
+
 export default function AtesPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       <Header />
       <main className="flex-1 pb-20 sm:pb-0">
 

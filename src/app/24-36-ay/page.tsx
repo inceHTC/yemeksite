@@ -8,9 +8,21 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://tokbebek.com.tr/24-36-ay" },
 };
 
+const breadcrumbLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Ana Sayfa", item: "https://tokbebek.com.tr" },
+    { "@type": "ListItem", position: 2, name: "Tarifler", item: "https://tokbebek.com.tr/tarifler" },
+    { "@type": "ListItem", position: 3, name: "24-36 Aylık Çocuk Yemekleri", item: "https://tokbebek.com.tr/24-36-ay" },
+  ],
+};
+
 export default function TwentyFourToThirtySixPage() {
   return (
-    <AgeLandingPage
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
+      <AgeLandingPage
       ageMin={24}
       ageMax={36}
       emoji="🧑‍🍳"
@@ -33,5 +45,6 @@ export default function TwentyFourToThirtySixPage() {
         "Fazla meyve suyu yerine su ve süt tercih edin",
       ]}
     />
+    </>
   );
 }

@@ -10,8 +10,8 @@ import { Leaf, ChevronRight, BookOpen, AlertCircle, Check, X } from "lucide-reac
 
 export const metadata: Metadata = {
   title: "Bebek Kabızlığına Ne İyi Gelir? — Kabızlık Önleyici Tarifler",
-  description: '"P meyveleri", yüksek lifli tahıllar ve yoğurt ile bebek kabızlığına doğal çözümler. Erik, armut, şeftali tarifleri.',
-  keywords: ["bebek kabızlığı", "bebek kabızlığına ne iyi gelir", "bebek kabızlık tarifi", "bebek erik püresi", "bebek bağırsak"],
+  description: '"P meyveleri" (erik, armut, şeftali) ile bebek kabızlığına doğal çözümler. Yüksek lifli tarifler ve kaçınılması gereken besinler.',
+  keywords: ["bebek kabızlığı", "bebek kabızlığına ne iyi gelir", "bebek kabızlık tarifi", "bebek erik püresi", "bebek bağırsak", "bebek kabızlık ne zaman geçer", "P meyveleri bebek", "bebek kaka yapmıyor", "bebek armut püresi kabızlık", "tamamlayıcı besinde kabızlık"],
   alternates: { canonical: "https://tokbebek.com.tr/destek/kabizlik" },
 };
 
@@ -45,9 +45,44 @@ const BAD_FOODS = [
   "Rafine un ürünleri",
 ];
 
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "Bebek kabızlığına ne iyi gelir?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: '"P meyveleri" olarak bilinen erik, armut ve şeftali püresi bebek kabızlığında en etkili doğal çözümlerdir. Bu meyveler yüksek sorbitol ve lif içerikleriyle bağırsak hareketlerini destekler. Yulaf ezmesi ve yoğurt da faydalıdır.',
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Bebek ne zaman kabız sayılır?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Bebeğin 3 günden uzun süre dışkılayamaması, sert ve kuru dışkı çıkarması ya da dışkılama sırasında ıkınıp zorlanması kabızlık belirtisi olarak değerlendirilir. Tamamlayıcı besine geçişte bu durum sık görülür.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Bebek kabızlığında ne verilmemeli?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Olgunlaşmamış muz, fazla pirinç bazlı tahıl, pişmiş havuç ve rafine un ürünleri kabızlığı kötüleştirebilir. Yeterli sıvı (su veya anne sütü) alımı da kritik önem taşır.",
+      },
+    },
+  ],
+};
+
 export default function KabizlikPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       <Header />
       <main className="flex-1 pb-20 sm:pb-0">
 

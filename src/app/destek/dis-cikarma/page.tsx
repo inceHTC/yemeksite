@@ -11,7 +11,7 @@ import { Snowflake, ChevronRight, BookOpen, AlertCircle } from "lucide-react";
 export const metadata: Metadata = {
   title: "Diş Çıkaran Bebek İçin Tarifler — Serinletici ve Yumuşak Yemekler",
   description: "Diş çıkarma döneminde bebeğinizin rahatsızlığını azaltacak soğuk ve yumuşak tarifler. Dondurulmuş meyve bezi ve serinletici püreler.",
-  keywords: ["diş çıkaran bebek yemekleri", "diş çıkarma beslenmesi", "bebek diş ağrısı ne iyi gelir", "serinletici bebek yemeği"],
+  keywords: ["diş çıkaran bebek yemekleri", "diş çıkarma beslenmesi", "bebek diş ağrısı ne iyi gelir", "serinletici bebek yemeği", "bebek diş çıkarma belirtileri", "bebek diş çıkarırken ne olur", "diş çıkaran bebek ne yiyor", "bebek dişi kaşınıyor", "bebek ilk diş ne zaman çıkar"],
   alternates: { canonical: "https://tokbebek.com.tr/destek/dis-cikarma" },
 };
 
@@ -52,9 +52,44 @@ const BEST_FOODS = [
   { name: "Soğuk elma-armut püresi", note: "Hafif kıvam, serinletici etki" },
 ];
 
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "Diş çıkaran bebeğe ne yedirilir?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Diş çıkarma döneminde soğutulmuş muz, avokado veya karpuz püresi, serin yoğurt (8 ay+) ve dondurulmuş meyve bezi en uygun seçeneklerdir. Soğuk yiyecekler diş etini geçici olarak uyuşturarak ağrıyı azaltır.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Bebek diş çıkarırken nasıl beslenmeli?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Daha uzun pişirilerek tamamen yumuşatılmış, kıvamlı ve soğutulmuş püreler tercih edilmelidir. Sert ve çiğneme gerektiren yiyeceklerden kaçınılmalı; meyve püresi bebek ağ bezine konularak ısırma imkânı da sağlanabilir.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Bebek diş çıkarma belirtileri nelerdir?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Diş çıkarma belirtileri arasında aşırı salya akması, diş etlerini ısırma isteği, huzursuzluk, hafif ateş ve uyku düzensizliği sayılabilir. Alt ön dişler genellikle 6-10. aylar arasında çıkar.",
+      },
+    },
+  ],
+};
+
 export default function DisCikarmaPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       <Header />
       <main className="flex-1 pb-20 sm:pb-0">
 

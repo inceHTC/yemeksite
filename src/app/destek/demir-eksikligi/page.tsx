@@ -10,7 +10,7 @@ import { Droplets, ChevronRight, BookOpen, AlertCircle } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Bebekte Demir Eksikliği: Belirtiler ve Demir Zengini Tarifler",
-  description: "6-24 ay arası bebekler için demir eksikliği belirtileri ve demir açısından zengin tarifler. Hem ve non-hem demir kaynakları rehberi.",
+  description: "Bebekte demir eksikliği belirtileri: soluk cilt, iştahsızlık, yorgunluk. 6-24 ay için demir zengini tarifler ve emilimi artıran ipuçları.",
   keywords: ["bebekte demir eksikliği", "bebek anemi", "demir zengini bebek yemeği", "bebek demir takviyesi"],
   alternates: { canonical: "https://tokbebek.com.tr/destek/demir-eksikligi" },
 };
@@ -62,9 +62,44 @@ const NON_HEM_IRON = [
   "Baklagiller: nohut, fasulye, bezelye",
 ];
 
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "Bebekte demir eksikliği belirtileri nelerdir?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Soluk cilt ve yorgunluk, iştahsızlık ve büyüme yavaşlaması, huzursuzluk ve uyku sorunları ile enfeksiyonlara yatkınlık demir eksikliğinin başlıca belirtileridir. 6-24 ay arası bebekler özellikle risk altındadır.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Bebeğe demir için ne verilmeli?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Hem demir için kırmızı et (dana, kuzu), tavuk, balık ve yumurta sarısı; non-hem demir için mercimek, ıspanak, brokoli ve baklagiller. Demir emilimini artırmak için C vitamini içeren besinlerle (brokoli, biber, kivi) birlikte sunun.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Bebekte demir eksikliği nasıl önlenir?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "6. aydan itibaren demir açısından zengin besinlere başlayın. Bitki bazlı demir kaynaklarını C vitaminiyle eşleştirin. Çay ve yüksek kalsiyumlu besinler demir emilimini azaltır, yemekten uzak tutun. Şüphe durumunda kan testi yaptırın.",
+      },
+    },
+  ],
+};
+
 export default function DemirEksikligiPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       <Header />
       <main className="flex-1 pb-20 sm:pb-0">
 

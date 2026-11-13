@@ -10,9 +10,43 @@ import { Wind, ChevronRight, BookOpen, AlertCircle } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Bebek Gaz Sancısına Ne İyi Gelir? — Gaz Dostu Tarifler",
-  description: "Bebek gaz sancısını azaltan rezene, kimyon ve papatya içerikli tarifler. Gaz masajı adımları ve doğal çözümler.",
-  keywords: ["bebek gaz sancısı", "bebek gazı nasıl geçer", "gaz dostu bebek yemekleri", "rezene bebek", "bebek gaz masajı"],
+  description: "Bebek gaz sancısını azaltan rezene, kimyon ve papatya içerikli tarifler. 4 adımlı gaz masajı rehberi ve doğal çözümler.",
+  keywords: ["bebek gaz sancısı", "bebek gazı nasıl geçer", "gaz dostu bebek yemekleri", "rezene bebek", "bebek gaz masajı", "bebek karnı şişkinliği", "bebek gaz sancısı ne zaman geçer", "yenidoğan gaz sancısı", "bebek bisiklet hareketi", "bebek gaz çıkarma"],
   alternates: { canonical: "https://tokbebek.com.tr/destek/gaz-sancisi" },
+};
+
+const howToSchema = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  name: "Bebek Gaz Masajı Nasıl Yapılır? — 4 Adım",
+  description: "Bebek gaz sancısını azaltmak için 4 adımlı masaj rehberi. Bisiklet hareketi ve karın masajıyla gazı harekete geçirin.",
+  totalTime: "PT10M",
+  step: [
+    {
+      "@type": "HowToStep",
+      position: 1,
+      name: "Bisiklet Hareketi",
+      text: "Bebeğinizi sırt üstü yatırın. Bacaklarını nazikçe kavrayıp bisiklet çevirir gibi döngüsel hareket yaptırın. 10 tekrar.",
+    },
+    {
+      "@type": "HowToStep",
+      position: 2,
+      name: "Karın Masajı",
+      text: "Göbek çevresinden saat yönünde daireler çizin. Baskı hafif olmalı. 2–3 dakika sürdürün.",
+    },
+    {
+      "@type": "HowToStep",
+      position: 3,
+      name: "Diz-Karın Pozisyonu",
+      text: "Bebeğin dizlerini büküp karnına doğru bastırın, 10 saniye tutun, bırakın. 5–6 tekrar.",
+    },
+    {
+      "@type": "HowToStep",
+      position: 4,
+      name: "Yüz Üstü Zaman",
+      text: "Bebeğin karnına hafif baskı yaparak yüzüstü pozisyonda tutun — her zaman gözetim altında. Doğal baskı gazı harekete geçirir.",
+    },
+  ],
 };
 
 const faqSchema = {
@@ -73,6 +107,10 @@ const KEY_FOODS = [
 export default function GazSancisiPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}

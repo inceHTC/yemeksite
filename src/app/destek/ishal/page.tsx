@@ -10,7 +10,7 @@ import { Thermometer, ChevronRight, BookOpen, AlertCircle } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Bebekte İshal: Ne Yedireyim? BRAT Diyeti Rehberi",
-  description: "Bebekte ishal döneminde BRAT diyeti ve beslenme önerileri. Sıvı kaybını önleme ve sindirim sistemini yatıştıran tarifler.",
+  description: "Bebekte ishal döneminde ne yedireyim? BRAT diyeti (muz, pirinç, elma sosu) ve sıvı kaybını önleme rehberi. Kaçınılması gereken besinler.",
   keywords: ["bebekte ishal ne yedireyim", "bebek ishal tarifi", "BRAT diyeti bebek", "bebek ishal beslenme"],
   alternates: { canonical: "https://tokbebek.com.tr/destek/ishal" },
 };
@@ -57,9 +57,44 @@ const AVOID_FOODS = [
   "Baharatlı yiyecekler — bağırsak mukozasını tahriş eder",
 ];
 
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "Bebekte ishal döneminde ne yedireyim?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "BRAT diyeti önerilir: Muz (Banana), Pirinç püresi (Rice), Elma sosu (Applesauce) ve Tost (Toast, 10 ay+). Bu besinler bağırsağı yatıştırır ve stool kıvamını normalleştirir. En önemli öncelik sıvı kaybını önlemektir.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Bebekte ishal döneminde ne verilmemeli?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Süt ürünleri (geçici laktoz intoleransı riski), yüksek lifli sebzeler (bezelye, brokoli), meyve suları ve yağlı besinlerden kaçınılmalıdır. 1 yaş altına bal kesinlikle verilmez.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Bebekte ishal ne zaman geçer ve ne zaman doktora gidilmeli?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Viral ishallerin çoğu 3-7 günde kendiliğinden geçer. 24 saatten uzun süren veya kanlı ishal, yüksek ateş, belirgin sıvı kaybı (ağız kuruluğu, ağlayınca gözyaşı gelmemesi) veya şiddetli karın ağrısı durumunda hemen doktora başvurun.",
+      },
+    },
+  ],
+};
+
 export default function IshalPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       <Header />
       <main className="flex-1 pb-20 sm:pb-0">
 
