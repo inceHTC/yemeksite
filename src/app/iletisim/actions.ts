@@ -30,7 +30,7 @@ export async function sendContactMessage(formData: FormData) {
 
   // Mail bildirimi gönder
   const { error: mailError } = await resend.emails.send({
-    from: "Tok Bebek <bildirim@tokbebek.com.tr>",
+    from: "Tok Bebek <iletisim@tokbebek.com.tr>",
     to: "tokbebekiletisim@gmail.com",
     replyTo: email,
     subject: `İletişim Formu: ${subject || "Yeni Mesaj"} — ${name}`,
