@@ -50,7 +50,7 @@ export default function GizlilikPage() {
               </p>
               <ul className="list-disc pl-5 space-y-1 mt-2">
                 <li>Yasal zorunluluk (mahkeme kararı vb.)</li>
-                <li>E-posta gönderimi için Resend (e-posta altyapı sağlayıcısı)</li>
+                
               </ul>
             </section>
 
@@ -78,7 +78,7 @@ export default function GizlilikPage() {
               <p>
                 Gizlilik ile ilgili sorularınız için:{" "}
                 <a href="mailto:tokbebek.com.tr" className="text-primary hover:underline">
-                  tokbebekiletisim@gmail.com
+                  iletisim@tokbebek.com.tr
                 </a>
               </p>
             </section>
