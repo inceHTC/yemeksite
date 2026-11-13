@@ -93,7 +93,7 @@ export default function IletisimPage() {
                     <Mail className="w-4 h-4 text-primary" />
                   </div>
                   <div>
-                    <p className="text-sm  group-hover:text-primary transition-colors">iletisim@tokbebek.com.tr</p>
+                    <p className="text-sm  group-hover:text-primary transition-colors">tokbebekiletisim@gmail.com</p>
                     <p className="text-xs text-muted-foreground">Genellikle 1–2 iş günü içinde yanıt</p>
                   </div>
                 </a>
